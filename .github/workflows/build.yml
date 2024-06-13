@@ -1,6 +1,8 @@
 name: EX Emulators
 
-on: [push, pull_request]
+on: 
+  watch:
+    types: [started]
 
 jobs:
   build:
@@ -8,7 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        image: ["2600.emu", "C64.emu", "GBA.emu", "GBC.emu", "Lynx.emu", "MD.emu", "MSX.emu", "NEO.emu", "NES.emu", "NGP.emu", "PCE.emu", "Snes9x", "Snes9x-1.43-9", "Snes9x-1.43-15", "Swan.emu", "Saturn.emu"]
+        image: ["NES.emu"]
+        # image: ["2600.emu", "C64.emu", "GBA.emu", "GBC.emu", "Lynx.emu", "MD.emu", "MSX.emu", "NEO.emu", "NES.emu", "NGP.emu", "PCE.emu", "Snes9x", "Snes9x-1.43-9", "Snes9x-1.43-15", "Swan.emu", "Saturn.emu"]
 
     steps:
     - name: Checkout emu-ex-plus-alpha repo
