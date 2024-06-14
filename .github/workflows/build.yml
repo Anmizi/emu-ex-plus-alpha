@@ -1,8 +1,6 @@
 name: EX Emulators
 
-on: 
-  watch:
-    types: [started]
+on: workflow_dispatch
 
 jobs:
   build:
