@@ -1,8 +1,6 @@
 name: EX Emulators
 
 on: 
-  watch:
-    types: [started]
   push: 
     branches:
       - 'translate'
@@ -20,6 +18,7 @@ jobs:
     - name: Checkout emu-ex-plus-alpha repo
       uses: actions/checkout@v4
       with:
+        ref: translate
         fetch-depth: 0
 
     - name: Decode debug keystore
