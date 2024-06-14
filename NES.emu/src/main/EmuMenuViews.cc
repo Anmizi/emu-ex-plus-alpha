@@ -78,7 +78,7 @@ class ConsoleOptionView : public TableView, public MainAppHelper
 
 	MultiChoiceMenuItem inputPorts
 	{
-		"Input Ports", attachParams(),
+		"输入端口", attachParams(),
 		MenuId{packInputEnums(system().inputPort1.value(), system().inputPort2.value())},
 		inputPortsItem,
 		{
@@ -114,7 +114,7 @@ class ConsoleOptionView : public TableView, public MainAppHelper
 
 	MultiChoiceMenuItem videoSystem
 	{
-		"System", attachParams(),
+		"系统", attachParams(),
 		MenuId{system().optionVideoSystem},
 		videoSystemItem,
 		{
@@ -139,9 +139,9 @@ class ConsoleOptionView : public TableView, public MainAppHelper
 
 	BoolMenuItem compatibleFrameskip
 	{
-		"Frameskip Mode", attachParams(),
+		"跳帧模式", attachParams(),
 		(bool)system().optionCompatibleFrameskip,
-		"Fast", "Compatible",
+		"快速", "兼容",
 		[this](BoolMenuItem &item, View &, Input::Event e)
 		{
 			if(!item.boolValue())
@@ -166,7 +166,7 @@ class ConsoleOptionView : public TableView, public MainAppHelper
 		}
 	};
 
-	TextHeadingMenuItem videoHeading{"Video", attachParams()};
+	TextHeadingMenuItem videoHeading{"视频", attachParams()};
 
 	static uint16_t packVideoLines(uint8_t start, uint8_t total)
 	{

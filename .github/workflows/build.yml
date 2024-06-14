@@ -3,6 +3,9 @@ name: EX Emulators
 on: 
   watch:
     types: [started]
+  push: 
+    branches:
+      - 'translate'
 
 jobs:
   build:
