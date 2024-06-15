@@ -36,35 +36,35 @@ static FS::FileString savePathStrToDisplayName(IG::ApplicationContext ctx, std::
 	if(savePathStr.size())
 	{
 		if(savePathStr == optionSavePathDefaultToken)
-			return "App Folder";
+			return "应用文件夹";
 		else
 			return ctx.fileUriDisplayName(savePathStr);
 	}
 	else
 	{
-		return "Content Folder";
+		return "内容文件夹";
 	}
 }
 
 static auto savesMenuName(IG::ApplicationContext ctx, std::string_view savePath)
 {
-	return std::format("Saves: {}", savePathStrToDisplayName(ctx, savePath));
+	return std::format("保存: {}", savePathStrToDisplayName(ctx, savePath));
 }
 
 static auto screenshotsMenuName(IG::ApplicationContext ctx, std::string_view userPath)
 {
-	return std::format("Screenshots: {}", userPathToDisplayName(ctx, userPath));
+	return std::format("截图: {}", userPathToDisplayName(ctx, userPath));
 }
 
 FilePathOptionView::FilePathOptionView(ViewAttachParams attach, bool customMenu):
-	TableView{"File Path Options", attach, item},
+	TableView{"文件路径选项", attach, item},
 	savePath
 	{
 		savesMenuName(appContext(), system().userSaveDirectory()), attach,
 		[this](const Input::Event &e)
 		{
-			auto multiChoiceView = makeViewWithName<TextTableView>("Saves", 4);
-			multiChoiceView->appendItem("Select Folder",
+			auto multiChoiceView = makeViewWithName<TextTableView>("保存", 4);
+			multiChoiceView->appendItem("选择文件夹",
 				[this](const Input::Event &e)
 				{
 					auto fPicker = makeView<FilePicker>(FSPicker::Mode::DIR, EmuSystem::NameFilterFunc{}, e);
@@ -76,7 +76,7 @@ FilePathOptionView::FilePathOptionView(ViewAttachParams attach, bool customMenu)
 						{
 							if(!hasWriteAccessToDir(path))
 							{
-								app().postErrorMessage("This folder lacks write access");
+								app().postErrorMessage("此文件夹缺少写入访问权限");
 								return;
 							}
 							system().setUserSaveDirectory(path);
@@ -87,21 +87,21 @@ FilePathOptionView::FilePathOptionView(ViewAttachParams attach, bool customMenu)
 						});
 					pushAndShowModal(std::move(fPicker), e);
 				});
-			multiChoiceView->appendItem("Same As Content",
+			multiChoiceView->appendItem("与内容相同",
 				[this](View &view)
 				{
 					system().setUserSaveDirectory("");
 					onSavePathChange("");
 					view.dismiss();
 				});
-			multiChoiceView->appendItem("App Folder",
+			multiChoiceView->appendItem("应用文件夹",
 				[this](View &view)
 				{
 					system().setUserSaveDirectory(optionSavePathDefaultToken);
 					onSavePathChange(optionSavePathDefaultToken);
 					view.dismiss();
 				});
-			multiChoiceView->appendItem("Legacy Game Data Folder",
+			multiChoiceView->appendItem("旧版游戏数据文件夹",
 				[this](View &view, const Input::Event &e)
 				{
 					pushAndShowModal(makeView<YesNoAlertView>(
@@ -119,12 +119,12 @@ FilePathOptionView::FilePathOptionView(ViewAttachParams attach, bool customMenu)
 										auto ctx = appContext();
 										if(!hasWriteAccessToDir(path))
 										{
-											app().postErrorMessage("This folder lacks write access");
+											app().postErrorMessage("此文件夹缺少写入访问权限");
 											return;
 										}
 										if(ctx.fileUriDisplayName(path) != system().shortSystemName())
 										{
-											app().postErrorMessage(std::format("Please select the {} folder", system().shortSystemName()));
+											app().postErrorMessage(std::format("请选择 {} 文件夹", system().shortSystemName()));
 											return;
 										}
 										EmuApp::updateLegacySavePath(ctx, path);
@@ -147,10 +147,10 @@ FilePathOptionView::FilePathOptionView(ViewAttachParams attach, bool customMenu)
 		screenshotsMenuName(appContext(), app().userScreenshotPath), attach,
 		[this](const Input::Event &e)
 		{
-			pushAndShow(makeViewWithName<UserPathSelectView>("Screenshots", app().screenshotDirectory(),
+			pushAndShow(makeViewWithName<UserPathSelectView>("截图", app().screenshotDirectory(),
 				[this](CStringView path)
 				{
-					log.info("set screenshots path:{}", path);
+					log.info("设置截图路径:{}", path);
 					app().userScreenshotPath = path;
 					screenshotPath.compile(screenshotsMenuName(appContext(), path));
 				}), e);
@@ -173,7 +173,7 @@ void FilePathOptionView::onSavePathChange(std::string_view path)
 {
 	if(path == optionSavePathDefaultToken)
 	{
-		app().postMessage(4, false, std::format("App Folder:\n{}", system().fallbackSaveDirectory()));
+		app().postMessage(4, false, std::format("应用文件夹:\n{}", system().fallbackSaveDirectory()));
 	}
 	savePath.compile(savesMenuName(appContext(), path));
 }

@@ -122,18 +122,18 @@ void EmuView::updateFrameTimeStats(FrameTimeStats stats, SteadyClockTimePoint cu
 	auto frameTime = duration_cast<Milliseconds>(stats.endOfDraw - stats.startOfFrame);
 	doIfUsed(frameTimeStats, [&](auto &statsUI)
 	{
-		statsUI.text.resetString(std::format("Frame Time Stats\n\n"
-			"Screen Frame Time: {}ms\n"
-			"Deadline: {}ms\n"
-			"Timestamp Diff: {}ms\n"
-			"Frame Callback: {}ms\n"
-			"Emulate: {}ms\n"
-			"Submit Frame: {}ms\n"
-			"Draw Callback: {}ms\n"
-			"Draw: {}ms\n"
-			"Present: {}ms\n"
-			"Total: {}ms\n"
-			"Missed Callbacks: {}",
+		statsUI.text.resetString(std::format("帧时间统计\n\n"
+			"屏幕帧时间: {}ms\n"
+			"最后期限: {}ms\n"
+			"时间戳差异: {}ms\n"
+			"帧回调: {}ms\n"
+			"模拟: {}ms\n"
+			"提交帧: {}ms\n"
+			"绘制回调: {}ms\n"
+			"绘制: {}ms\n"
+			"目前: {}ms\n"
+			"总计: {}ms\n"
+			"错过回调: {}",
 			screenFrameTime.count(), deadline.count(), timestampDiff.count(), callbackOverhead.count(), emulationTime.count(), submitFrameTime.count(),
 			postDrawTime.count(), drawTime.count(), presentTime.count(), frameTime.count(), stats.missedFrameCallbacks));
 		placeFrameTimeStats();

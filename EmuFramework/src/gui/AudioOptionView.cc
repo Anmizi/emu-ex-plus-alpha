@@ -27,7 +27,7 @@ AudioOptionView::AudioOptionView(ViewAttachParams attach, EmuAudio& audio_, bool
 	audio{audio_},
 	snd
 	{
-		"Sound", attach,
+		"音频", attach,
 		audio_.isEnabled(),
 		[this](BoolMenuItem &item)
 		{
@@ -36,7 +36,7 @@ AudioOptionView::AudioOptionView(ViewAttachParams attach, EmuAudio& audio_, bool
 	},
 	soundDuringFastSlowMode
 	{
-		"Sound During Fast/Slow Mode", attach,
+		"变速模式下的声音", attach,
 		audio_.isEnabledDuringAltSpeed(),
 		[this](BoolMenuItem &item)
 		{
@@ -48,9 +48,9 @@ AudioOptionView::AudioOptionView(ViewAttachParams attach, EmuAudio& audio_, bool
 		{"100%", attach, {.id = 100}},
 		{"50%",  attach, {.id = 50}},
 		{"25%",  attach, {.id = 25}},
-		{"Custom Value", attach, [this](const Input::Event &e)
+		{"自定义数值", attach, [this](const Input::Event &e)
 			{
-				pushAndShowNewCollectValueRangeInputView<int, 0, 125>(attachParams(), e, "Input 0 to 125", "",
+				pushAndShowNewCollectValueRangeInputView<int, 0, 125>(attachParams(), e, "输入0到125之间的值", "",
 					[this](CollectTextInputView &, auto val)
 					{
 						audio.setMaxVolume(val);
@@ -64,7 +64,7 @@ AudioOptionView::AudioOptionView(ViewAttachParams attach, EmuAudio& audio_, bool
 	},
 	soundVolume
 	{
-		"Volume", attach,
+		"音量", attach,
 		MenuId{audio_.maxVolume()},
 		soundVolumeItem,
 		{
@@ -88,7 +88,7 @@ AudioOptionView::AudioOptionView(ViewAttachParams attach, EmuAudio& audio_, bool
 	},
 	soundBuffers
 	{
-		"Buffer Size In Frames", attach,
+		"缓冲区大小(以帧为单位)", attach,
 		MenuId{audio_.soundBuffers},
 		soundBuffersItem,
 		{
@@ -97,7 +97,7 @@ AudioOptionView::AudioOptionView(ViewAttachParams attach, EmuAudio& audio_, bool
 	},
 	addSoundBuffersOnUnderrun
 	{
-		"Auto-increase Buffer Size", attach,
+		"自动增加缓冲区大小", attach,
 		audio_.addSoundBuffersOnUnderrunSetting,
 		[this](BoolMenuItem &item)
 		{
@@ -109,7 +109,7 @@ AudioOptionView::AudioOptionView(ViewAttachParams attach, EmuAudio& audio_, bool
 		[&]
 		{
 			decltype(audioRateItem) items;
-			items.emplace_back("Device Native", attach, [this](View &view)
+			items.emplace_back("与本机一致", attach, [this](View &view)
 			{
 				audio.setRate(0);
 				audioRate.setSelected(MenuId{audio.rate()}, view);
@@ -127,13 +127,13 @@ AudioOptionView::AudioOptionView(ViewAttachParams attach, EmuAudio& audio_, bool
 	},
 	audioRate
 	{
-		"Sound Rate", attach,
+		"音频", attach,
 		MenuId{audio_.rate()},
 		audioRateItem
 	},
 	audioSoloMix
 	{
-		"Mix With Other Apps", attach,
+		"后台播放", attach,
 		!audio_.manager.soloMix(),
 		[this](BoolMenuItem &item)
 		{
@@ -145,7 +145,7 @@ AudioOptionView::AudioOptionView(ViewAttachParams attach, EmuAudio& audio_, bool
 		[this]()
 		{
 			ApiItemContainer items{};
-			items.emplace_back("Auto", attachParams(), [this](View &view)
+			items.emplace_back("自动", attachParams(), [this](View &view)
 			{
 				audio.setOutputAPI(Audio::Api::DEFAULT);
 				doIfUsed(api, [&](auto &api){ api.setSelected(MenuId{audio.manager.makeValidAPI()}); });
@@ -164,7 +164,7 @@ AudioOptionView::AudioOptionView(ViewAttachParams attach, EmuAudio& audio_, bool
 	},
 	api
 	{
-		"Audio Driver", attach,
+		"音频驱动", attach,
 		MenuId{audio_.manager.makeValidAPI(audio_.outputAPI())},
 		apiItem
 	}

@@ -51,11 +51,11 @@ static void onScanStatus(EmuApp &app, BluetoothScanState status, int arg);
 template <class ViewT>
 static void handledFailedBTAdapterInit(ViewT &view, ViewAttachParams attach, const Input::Event &e)
 {
-	view.app().postErrorMessage("Unable to initialize Bluetooth adapter");
+	view.app().postErrorMessage("无法初始化蓝牙适配器");
 	#ifdef CONFIG_BLUETOOTH_BTSTACK
 	if(!FS::exists("/var/lib/dpkg/info/ch.ringwald.btstack.list"))
 	{
-		view.pushAndShowModal(std::make_unique<YesNoAlertView>(attach, "BTstack not found, open Cydia and install?",
+		view.pushAndShowModal(std::make_unique<YesNoAlertView>(attach, "未找到 BTstack，请打开 Cydia 并安装？",
 			YesNoAlertView::Delegates
 			{
 				.onYes = [](View &v){ v.appContext().openURL("cydia://package/ch.ringwald.btstack"); }
@@ -68,7 +68,7 @@ MainMenuView::MainMenuView(ViewAttachParams attach, bool customMenu):
 	TableView{EmuApp::mainViewName(), attach, item},
 	loadGame
 	{
-		"Open Content", attach,
+		"打开内容", attach,
 		[this](const Input::Event &e)
 		{
 			pushAndShow(FilePicker::forLoading(attachParams(), e), e, false);
@@ -76,7 +76,7 @@ MainMenuView::MainMenuView(ViewAttachParams attach, bool customMenu):
 	},
 	systemActions
 	{
-		"System Actions", attach,
+		"系统操作", attach,
 		[this](const Input::Event &e)
 		{
 			if(!system().hasContent())
@@ -86,7 +86,7 @@ MainMenuView::MainMenuView(ViewAttachParams attach, bool customMenu):
 	},
 	recentGames
 	{
-		"Recent Content", attach,
+		"最近内容", attach,
 		[this](const Input::Event &e)
 		{
 			if(app().recentContent.size())
@@ -97,7 +97,7 @@ MainMenuView::MainMenuView(ViewAttachParams attach, bool customMenu):
 	},
 	bundledGames
 	{
-		"Bundled Content", attach,
+		"打包内容", attach,
 		[this](const Input::Event &e)
 		{
 			pushAndShow(makeView<BundledGamesView>(), e);
@@ -105,7 +105,7 @@ MainMenuView::MainMenuView(ViewAttachParams attach, bool customMenu):
 	},
 	options
 	{
-		"Options", attach,
+		"选项", attach,
 		[this](const Input::Event &e)
 		{
 			pushAndShow(makeView<OptionCategoryView>(), e);
@@ -113,7 +113,7 @@ MainMenuView::MainMenuView(ViewAttachParams attach, bool customMenu):
 	},
 	onScreenInputManager
 	{
-		"On-screen Input Setup", attach,
+		"屏幕输入设置", attach,
 		[this](const Input::Event &e)
 		{
 			pushAndShow(makeView<TouchConfigView>(app().defaultVController()), e);
@@ -121,7 +121,7 @@ MainMenuView::MainMenuView(ViewAttachParams attach, bool customMenu):
 	},
 	inputManager
 	{
-		"Key/Gamepad Input Setup", attach,
+		"按键/游戏板输入设置", attach,
 		[this](const Input::Event &e)
 		{
 			pushAndShow(makeView<InputManagerView>(app().inputManager), e);
@@ -129,7 +129,7 @@ MainMenuView::MainMenuView(ViewAttachParams attach, bool customMenu):
 	},
 	benchmark
 	{
-		"Benchmark Content", attach,
+		"基准内容", attach,
 		[this](const Input::Event &e)
 		{
 			pushAndShow(FilePicker::forBenchmarking(attachParams(), e), e, false);
@@ -137,7 +137,7 @@ MainMenuView::MainMenuView(ViewAttachParams attach, bool customMenu):
 	},
 	scanWiimotes
 	{
-		"Scan for Wiimotes/iCP/JS1", attach,
+		"扫描 Wiimotes/iCP/JS1", attach,
 		[this](const Input::Event &e)
 		{
 			app().bluetoothAdapter.openDefault();
@@ -149,11 +149,11 @@ MainMenuView::MainMenuView(ViewAttachParams attach, bool customMenu):
 						onScanStatus(app(), status, arg);
 					}))
 				{
-					app().postMessage(4, false, "Starting Scan...\n(see website for device-specific help)");
+					app().postMessage(4, false, "开始扫描...\n（有关特定设备的帮助，请参阅网站）");
 				}
 				else
 				{
-					app().postMessage(1, false, "Still scanning");
+					app().postMessage(1, false, "仍在扫描中");
 				}
 			}
 			else
@@ -165,26 +165,26 @@ MainMenuView::MainMenuView(ViewAttachParams attach, bool customMenu):
 	},
 	bluetoothDisconnect
 	{
-		"Disconnect Bluetooth", attach,
+		"断开蓝牙", attach,
 		[this](const Input::Event &e)
 		{
 			auto devConnected = Bluetooth::devsConnected(appContext());
 			if(devConnected)
 			{
-				pushAndShowModal(makeView<YesNoAlertView>(std::format("Really disconnect {} Bluetooth device(s)?", devConnected),
+				pushAndShowModal(makeView<YesNoAlertView>(std::format("真的要断开 {} 蓝牙设备？", devConnected),
 					YesNoAlertView::Delegates{.onYes = [this]{ app().closeBluetoothConnections(); }}), e);
 			}
 		}
 	},
 	acceptPS3ControllerConnection
 	{
-		"Scan for PS3 Controller", attach,
+		"扫描 PS3 控制器", attach,
 		[this](const Input::Event &e)
 		{
 			app().bluetoothAdapter.openDefault();
 			if(app().bluetoothAdapter.isOpen())
 			{
-				app().postMessage(4, "Prepare to push the PS button");
+				app().postMessage(4, "准备按下 PS 按钮");
 				auto startedScan = Bluetooth::listenForDevices(appContext(), app().bluetoothAdapter,
 					[this](BluetoothAdapter &bta, BluetoothScanState status, int arg)
 					{
@@ -194,13 +194,13 @@ MainMenuView::MainMenuView(ViewAttachParams attach, bool customMenu):
 							{
 								app().postErrorMessage(Config::envIsLinux ? 8 : 2,
 									Config::envIsLinux ?
-										"Unable to register server, make sure this executable has cap_net_bind_service enabled and bluetoothd isn't running" :
-										"Bluetooth setup failed");
+										"无法注册服务器，请确保此可执行文件已启用 cap_net_bind_service，且 bluetoothd 未运行" :
+										"蓝牙设置失败");
 								break;
 							}
 							case BluetoothScanState::Complete:
 							{
-								app().postMessage(4, "Push the PS button on your controller\n(see website for pairing help)");
+								app().postMessage(4, "按控制器上的 PS 按钮（有关配对帮助，请参阅网站）");
 								break;
 							}
 							default: onScanStatus(app(), status, arg);
@@ -208,7 +208,7 @@ MainMenuView::MainMenuView(ViewAttachParams attach, bool customMenu):
 					});
 				if(!startedScan)
 				{
-					app().postMessage(1, "Still scanning");
+					app().postMessage(1, "仍在扫描中");
 				}
 			}
 			else
@@ -220,7 +220,7 @@ MainMenuView::MainMenuView(ViewAttachParams attach, bool customMenu):
 	},
 	about
 	{
-		"About", attach,
+		"关于", attach,
 		[this](const Input::Event &e)
 		{
 			pushAndShow(makeView<CreditsView>(EmuSystem::creditsViewStr), e);
@@ -228,7 +228,7 @@ MainMenuView::MainMenuView(ViewAttachParams attach, bool customMenu):
 	},
 	exitApp
 	{
-		"Exit", attach,
+		"退出", attach,
 		[this]()
 		{
 			appContext().exit();
@@ -249,28 +249,28 @@ static void onScanStatus(EmuApp &app, BluetoothScanState status, int arg)
 		{
 			if(Config::envIsIOS)
 			{
-				app.postErrorMessage("BTstack power on failed, make sure the iOS Bluetooth stack is not active");
+				app.postErrorMessage("BTstack 开机失败，确保 iOS 蓝牙堆栈未激活");
 			}
 			break;
 		}
 		case BluetoothScanState::Failed:
 		{
-			app.postErrorMessage("Scan failed");
+			app.postErrorMessage("扫描失败");
 			break;
 		}
 		case BluetoothScanState::NoDevs:
 		{
-			app.postMessage("No devices found");
+			app.postMessage("找不到设备");
 			break;
 		}
 		case BluetoothScanState::Processing:
 		{
-			app.postMessage(2, 0, std::format("Checking {} device(s)...", arg));
+			app.postMessage(2, 0, std::format("检测 {} 设备中...", arg));
 			break;
 		}
 		case BluetoothScanState::NameFailed:
 		{
-			app.postErrorMessage("Failed reading a device name");
+			app.postErrorMessage("读取设备名称失败");
 			break;
 		}
 		case BluetoothScanState::Complete:
@@ -278,12 +278,12 @@ static void onScanStatus(EmuApp &app, BluetoothScanState status, int arg)
 			int devs = Bluetooth::pendingDevs();
 			if(devs)
 			{
-				app.postMessage(2, 0, std::format("Connecting to {} device(s)...", devs));
+				app.postMessage(2, 0, std::format("连接到 {} 设备...", devs));
 				Bluetooth::connectPendingDevs(app.bluetoothAdapter);
 			}
 			else
 			{
-				app.postMessage("Scan complete, no recognized devices");
+				app.postMessage("扫描完成，未识别设备");
 			}
 			break;
 		}
@@ -298,7 +298,7 @@ static void onScanStatus(EmuApp &app, BluetoothScanState status, int arg)
 void MainMenuView::onShow()
 {
 	TableView::onShow();
-	log.info("refreshing main menu state");
+	log.info("刷新主菜单状态");
 	recentGames.setActive(app().recentContent.size());
 	systemActions.setActive(system().hasContent());
 	bluetoothDisconnect.setActive(Bluetooth::devsConnected(appContext()));
@@ -342,7 +342,7 @@ void MainMenuView::reloadItems()
 OptionCategoryView::OptionCategoryView(ViewAttachParams attach):
 	TableView
 	{
-		"Options",
+		"选项",
 		attach,
 		[this](ItemMessage msg) -> ItemReply
 		{
@@ -356,49 +356,49 @@ OptionCategoryView::OptionCategoryView(ViewAttachParams attach):
 	subConfig
 	{
 		{
-			"Frame Timing", attach,
+			"帧计时", attach,
 			[this](const Input::Event &e)
 			{
 				pushAndShow(makeView<FrameTimingView>(), e);
 			}
 		},
 		{
-			"Video", attach,
+			"视频", attach,
 			[this](const Input::Event &e)
 			{
 				pushAndShow(app().makeView(attachParams(), EmuApp::ViewID::VIDEO_OPTIONS), e);
 			}
 		},
 		{
-			"Audio", attach,
+			"音频", attach,
 			[this](const Input::Event &e)
 			{
 				pushAndShow(app().makeView(attachParams(), EmuApp::ViewID::AUDIO_OPTIONS), e);
 			}
 		},
 		{
-			"System", attach,
+			"系统", attach,
 			[this](const Input::Event &e)
 			{
 				pushAndShow(app().makeView(attachParams(), EmuApp::ViewID::SYSTEM_OPTIONS), e);
 			}
 		},
 		{
-			"File Paths", attach,
+			"文件路径", attach,
 			[this](const Input::Event &e)
 			{
 				pushAndShow(app().makeView(attachParams(), EmuApp::ViewID::FILE_PATH_OPTIONS), e);
 			}
 		},
 		{
-			"GUI", attach,
+			"用户界面", attach,
 			[this](const Input::Event &e)
 			{
 				pushAndShow(app().makeView(attachParams(), EmuApp::ViewID::GUI_OPTIONS), e);
 			}
 		},
 		{
-			"Online Documentation", attach,
+			"在线文档", attach,
 			[this]
 			{
 				appContext().openURL("https://www.explusalpha.com/contents/emuex/documentation");
@@ -410,7 +410,7 @@ OptionCategoryView::OptionCategoryView(ViewAttachParams attach):
 	{
 		subConfig[lastIndex(subConfig)] =
 		{
-			"Beta Testing Opt-in/out", attach,
+			"测试版测试选择加入/退出", attach,
 			[this]()
 			{
 				appContext().openURL(std::format("https://play.google.com/apps/testing/{}", appContext().applicationId));

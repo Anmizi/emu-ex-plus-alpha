@@ -27,19 +27,19 @@ constexpr SystemLogger log{"StateSlotView"};
 
 static auto slotHeadingName(EmuSystem &sys)
 {
-	return std::format("Set State Slot ({})", sys.stateSlot());
+	return std::format("设置状态插槽 ({})", sys.stateSlot());
 }
 
 StateSlotView::StateSlotView(ViewAttachParams attach):
-	TableView{"Save States", attach, menuItems},
+	TableView{"保存状态", attach, menuItems},
 	load
 	{
-		"Load State", attach,
+		"加载状态", attach,
 		[this](TextMenuItem &item, View &, const Input::Event &e)
 		{
 			if(!item.active())
 				return;
-			pushAndShowModal(makeView<YesNoAlertView>("Really load state?",
+			pushAndShowModal(makeView<YesNoAlertView>("真的加载状态？",
 				YesNoAlertView::Delegates
 				{
 					.onYes = [this]
@@ -52,7 +52,7 @@ StateSlotView::StateSlotView(ViewAttachParams attach):
 	},
 	save
 	{
-		"Save State", attach,
+		"保存状态", attach,
 		[this](const Input::Event &e)
 		{
 			if(app().shouldOverwriteExistingState())
@@ -61,7 +61,7 @@ StateSlotView::StateSlotView(ViewAttachParams attach):
 			}
 			else
 			{
-				pushAndShowModal(makeView<YesNoAlertView>("Really overwrite state?",
+				pushAndShowModal(makeView<YesNoAlertView>("真的覆写状态？",
 					YesNoAlertView::Delegates{.onYes = [this]{ doSaveState(); }}), e);
 			}
 		}
@@ -104,7 +104,7 @@ void StateSlotView::refreshSlot(int slot)
 		stateSlot[sys.stateSlot()].setHighlighted(false);
 		stateSlot[slot].setHighlighted(true);
 		sys.setStateSlot(slot);
-		log.info("set state slot:{}", sys.stateSlot());
+		log.info("设置状态插槽:{}", sys.stateSlot());
 		slotHeading.compile(slotHeadingName(sys));
 		load.setActive(sys.stateExists(sys.stateSlot()));
 		postDraw();

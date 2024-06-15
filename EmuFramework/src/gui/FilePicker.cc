@@ -73,7 +73,7 @@ std::unique_ptr<FilePicker> FilePicker::forBenchmarking(ViewAttachParams attach,
 	picker->setOnSelectPath(
 		[&app](FSPicker &picker, CStringView path, std::string_view displayName, const Input::Event &e)
 		{
-			app.postMessage("Running benchmark...");
+			app.postMessage("运行基准测试...");
 			app.createSystemWithMedia({}, path, displayName, e, {}, picker.attachParams(),
 				[&app](const Input::Event &)
 				{

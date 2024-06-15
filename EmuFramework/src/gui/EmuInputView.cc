@@ -101,8 +101,8 @@ bool EmuInputView::inputEvent(const Input::Event& e, ViewInputEventParams)
 			static constexpr bool printKeyEvent = false;
 			if(printKeyEvent && !isRepeated)
 			{
-				app().postMessage(std::format("{} key: {} from device: {}",
-					isPushed ? "pushed" : "released", keyEv.device()->keyName(keyEv.key()),
+				app().postMessage(std::format("{} 按键: {} 从设备中: {}",
+					isPushed ? "按压" : "释放", keyEv.device()->keyName(keyEv.key()),
 					keyEv.device()->name()));
 			}
 			devData.updateInputKey(keyEv);

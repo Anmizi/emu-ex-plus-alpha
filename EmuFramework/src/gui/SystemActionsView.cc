@@ -37,23 +37,23 @@ constexpr SystemLogger log{"SystemActionsView"};
 
 static auto autoSaveName(EmuApp &app)
 {
-	return std::format("Autosave Slot ({})", app.autosaveManager.slotFullName());
+	return std::format("自动保存插槽 ({})", app.autosaveManager.slotFullName());
 }
 
 static std::string saveAutosaveName(EmuApp &app)
 {
 	auto &autosaveManager = app.autosaveManager;
 	if(!autosaveManager.timerFrequency().count())
-		return "Save Autosave State";
-	return std::format("Save Autosave State (Timer In {:%M:%S})",
+		return "保存自动保存状态";
+	return std::format("保存自动保存状态（计时器在 {:%M:%S} 内）",
 		duration_cast<Seconds>(autosaveManager.saveTimer.nextFireTime()));
 }
 
 SystemActionsView::SystemActionsView(ViewAttachParams attach, bool customMenu):
-	TableView{"System Actions", attach, item},
+	TableView{"系统动作", attach, item},
 	cheats
 	{
-		"Cheats", attach,
+		"作弊器", attach,
 		[this](const Input::Event &e)
 		{
 			if(system().hasContent())
@@ -64,7 +64,7 @@ SystemActionsView::SystemActionsView(ViewAttachParams attach, bool customMenu):
 	},
 	reset
 	{
-		"Reset", attach,
+		"重置", attach,
 		[this](const Input::Event &e)
 		{
 			if(!system().hasContent())
@@ -84,7 +84,7 @@ SystemActionsView::SystemActionsView(ViewAttachParams attach, bool customMenu):
 		{
 			if(!item.active())
 				return;
-			pushAndShowModal(makeView<YesNoAlertView>("Really save state?",
+			pushAndShowModal(makeView<YesNoAlertView>("真的保存状态吗？",
 				YesNoAlertView::Delegates
 				{
 					.onYes = [this]
@@ -97,7 +97,7 @@ SystemActionsView::SystemActionsView(ViewAttachParams attach, bool customMenu):
 	},
 	revertAutosave
 	{
-		"Load Autosave State", attach,
+		"加载自动保存状态", attach,
 		[this](TextMenuItem &item, const Input::Event &e)
 		{
 			if(!item.active())
@@ -105,10 +105,10 @@ SystemActionsView::SystemActionsView(ViewAttachParams attach, bool customMenu):
 			auto saveTime = app().autosaveManager.stateTimeAsString();
 			if(saveTime.empty())
 			{
-				app().postMessage("No saved state");
+				app().postMessage("无保存状态");
 				return;
 			}
-			pushAndShowModal(makeView<YesNoAlertView>(std::format("Really load state from: {}?", saveTime),
+			pushAndShowModal(makeView<YesNoAlertView>(std::format("真的要从 {} 加载状态吗？", saveTime),
 				YesNoAlertView::Delegates
 				{
 					.onYes = [this]
@@ -121,7 +121,7 @@ SystemActionsView::SystemActionsView(ViewAttachParams attach, bool customMenu):
 	},
 	stateSlot
 	{
-		"Manual Save States", attach,
+		"手动保存状态", attach,
 		[this](const Input::Event &e)
 		{
 			pushAndShow(makeView<StateSlotView>(), e);
@@ -129,7 +129,7 @@ SystemActionsView::SystemActionsView(ViewAttachParams attach, bool customMenu):
 	},
 	addLauncherIcon
 	{
-		"Add Content Shortcut To Launcher", attach,
+		"为启动器添加内容快捷方式", attach,
 		[this](const Input::Event &e)
 		{
 			if(!system().hasContent())
@@ -139,18 +139,18 @@ SystemActionsView::SystemActionsView(ViewAttachParams attach, bool customMenu):
 				// shortcuts to bundled games not yet supported
 				return;
 			}
-			pushAndShowNewCollectValueInputView<const char*>(attachParams(), e, "Shortcut Name", system().contentDisplayName(),
+			pushAndShowNewCollectValueInputView<const char*>(attachParams(), e, "快捷方式名称", system().contentDisplayName(),
 				[this](CollectTextInputView &, auto str)
 				{
 					appContext().addLauncherIcon(str, system().contentLocation());
-					app().postMessage(2, false, std::format("Added shortcut:\n{}", str));
+					app().postMessage(2, false, std::format("添加了快捷方式:\n{}", str));
 					return true;
 				});
 		}
 	},
 	screenshot
 	{
-		"Screenshot Next Frame", attach,
+		"截图下一帧", attach,
 		[this](const Input::Event &e)
 		{
 			if(!system().hasContent())
@@ -158,10 +158,10 @@ SystemActionsView::SystemActionsView(ViewAttachParams attach, bool customMenu):
 			auto pathName = appContext().fileUriDisplayName(app().screenshotDirectory());
 			if(pathName.empty())
 			{
-				app().postMessage("Save path isn't valid");
+				app().postMessage("保存路径无效");
 				return;
 			}
-			pushAndShowModal(makeView<YesNoAlertView>(std::format("Save screenshot to folder {}?", pathName),
+			pushAndShowModal(makeView<YesNoAlertView>(std::format("将截图保存到文件夹 {}？", pathName),
 				YesNoAlertView::Delegates
 				{
 					.onYes = [this]
@@ -174,13 +174,13 @@ SystemActionsView::SystemActionsView(ViewAttachParams attach, bool customMenu):
 	},
 	resetSessionOptions
 	{
-		"Reset Saved Options", attach,
+		"重置保存的选项", attach,
 		[this](const Input::Event &e)
 		{
 			if(!app().hasSavedSessionOptions())
 				return;
 			pushAndShowModal(makeView<YesNoAlertView>(
-				"Reset saved options for the currently running system to defaults? Some options only take effect next time the system loads.",
+				"将当前运行系统的已保存选项重置为默认值？有些选项只有在下次加载系统时才会生效。",
 				YesNoAlertView::Delegates
 				{
 					.onYes = [this]
@@ -193,7 +193,7 @@ SystemActionsView::SystemActionsView(ViewAttachParams attach, bool customMenu):
 	},
 	close
 	{
-		"Close Content", attach,
+		"关闭内容", attach,
 		[this](const Input::Event &e)
 		{
 			pushAndShowModal(app().makeCloseContentView(), e);
@@ -211,7 +211,7 @@ void SystemActionsView::onShow()
 	if(app().viewController().isShowingEmulation())
 		return;
 	TableView::onShow();
-	log.info("refreshing action menu state");
+	log.info("刷新动作菜单状态");
 	assert(system().hasContent());
 	autosaveSlot.compile(autoSaveName(app()));
 	autosaveNow.compile(saveAutosaveName(app()));

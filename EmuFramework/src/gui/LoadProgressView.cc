@@ -26,7 +26,7 @@ constexpr SystemLogger log{"LoadProgressView"};
 LoadProgressView::LoadProgressView(ViewAttachParams attach, const Input::Event &e, EmuApp::CreateSystemCompleteDelegate onComplete):
 	View{attach},
 	onComplete{onComplete},
-	text{attach.rendererTask, "Loading...", &attach.viewManager.defaultFace},
+	text{attach.rendererTask, "加载中...", &attach.viewManager.defaultFace},
 	progessBarQuads{attach.rendererTask, {.size = 1}},
 	originalEvent{e}
 {
