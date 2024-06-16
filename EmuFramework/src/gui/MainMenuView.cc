@@ -68,7 +68,7 @@ MainMenuView::MainMenuView(ViewAttachParams attach, bool customMenu):
 	TableView{EmuApp::mainViewName(), attach, item},
 	loadGame
 	{
-		"打开内容", attach,
+		"打开游戏", attach,
 		[this](const Input::Event &e)
 		{
 			pushAndShow(FilePicker::forLoading(attachParams(), e), e, false);
@@ -97,7 +97,7 @@ MainMenuView::MainMenuView(ViewAttachParams attach, bool customMenu):
 	},
 	bundledGames
 	{
-		"打包内容", attach,
+		"压缩游戏", attach,
 		[this](const Input::Event &e)
 		{
 			pushAndShow(makeView<BundledGamesView>(), e);
@@ -113,7 +113,7 @@ MainMenuView::MainMenuView(ViewAttachParams attach, bool customMenu):
 	},
 	onScreenInputManager
 	{
-		"屏幕输入设置", attach,
+		"虚拟键盘设置", attach,
 		[this](const Input::Event &e)
 		{
 			pushAndShow(makeView<TouchConfigView>(app().defaultVController()), e);
@@ -121,7 +121,7 @@ MainMenuView::MainMenuView(ViewAttachParams attach, bool customMenu):
 	},
 	inputManager
 	{
-		"按键/游戏板输入设置", attach,
+		"外接手柄设置", attach,
 		[this](const Input::Event &e)
 		{
 			pushAndShow(makeView<InputManagerView>(app().inputManager), e);
@@ -129,7 +129,7 @@ MainMenuView::MainMenuView(ViewAttachParams attach, bool customMenu):
 	},
 	benchmark
 	{
-		"基准内容", attach,
+		"游戏测帧", attach,
 		[this](const Input::Event &e)
 		{
 			pushAndShow(FilePicker::forBenchmarking(attachParams(), e), e, false);
@@ -137,7 +137,7 @@ MainMenuView::MainMenuView(ViewAttachParams attach, bool customMenu):
 	},
 	scanWiimotes
 	{
-		"扫描 Wiimotes/iCP/JS1", attach,
+		"扫描Wiimotes/iCP/JS1", attach,
 		[this](const Input::Event &e)
 		{
 			app().bluetoothAdapter.openDefault();

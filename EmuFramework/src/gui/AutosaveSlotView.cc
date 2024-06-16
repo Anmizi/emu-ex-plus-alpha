@@ -121,7 +121,7 @@ static std::string slotDescription(EmuApp &app, std::string_view saveName)
 {
 	auto desc = app.appContext().fileUriFormatLastWriteTimeLocal(app.autosaveManager.statePath(saveName));
 	if(desc.empty())
-		desc = "No saved state";
+		desc = "没有保存的存档";
 	return desc;
 }
 

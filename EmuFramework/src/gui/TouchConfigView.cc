@@ -701,7 +701,7 @@ class AddNewButtonView : public TableView, public EmuAppHelper
 {
 public:
 	AddNewButtonView(ViewAttachParams attach, TouchConfigView &confView_, VController &vCtrl_):
-		TableView{"添加新按钮组", attach, buttons},
+		TableView{"添加新按键组合", attach, buttons},
 		vCtrl{vCtrl_},
 		confView{confView_}
 	{
@@ -763,7 +763,7 @@ void TouchConfigView::refreshTouchConfigMenu()
 }
 
 TouchConfigView::TouchConfigView(ViewAttachParams attach, VController &vCtrl):
-	TableView{"屏幕输入设置", attach, item},
+	TableView{"虚拟键盘设置", attach, item},
 	vController{vCtrl},
 	touchCtrlItem
 	{
@@ -773,7 +773,7 @@ TouchConfigView::TouchConfigView(ViewAttachParams attach, VController &vCtrl):
 	},
 	touchCtrl
 	{
-		"使用虚拟游戏手柄", attach,
+		"启用虚拟键盘", attach,
 		int(vCtrl.gamepadControlsVisibility()),
 		touchCtrlItem,
 		{
@@ -796,7 +796,7 @@ TouchConfigView::TouchConfigView(ViewAttachParams attach, VController &vCtrl):
 	},
 	player
 	{
-		"虚拟游戏手柄玩家", attach,
+		"虚拟键盘玩家", attach,
 		int(vCtrl.inputPlayer()),
 		playerItems,
 		{
@@ -833,7 +833,7 @@ TouchConfigView::TouchConfigView(ViewAttachParams attach, VController &vCtrl):
 	},
 	size
 	{
-		"按钮大小", attach,
+		"按键大小", attach,
 		MenuId{vController.buttonSize()},
 		sizeItem,
 		{
@@ -865,7 +865,7 @@ TouchConfigView::TouchConfigView(ViewAttachParams attach, VController &vCtrl):
 	},
 	highlightPushedButtons
 	{
-		"突出显示按下的按钮", attach,
+		"按压高亮显示", attach,
 		vController.highlightPushedButtons,
 		[this](BoolMenuItem &item)
 		{
@@ -883,7 +883,7 @@ TouchConfigView::TouchConfigView(ViewAttachParams attach, VController &vCtrl):
 	},
 	alpha
 	{
-		"混合量", attach,
+		"透明度", attach,
 		MenuId{vController.buttonAlpha()},
 		alphaItem,
 		{
@@ -892,7 +892,7 @@ TouchConfigView::TouchConfigView(ViewAttachParams attach, VController &vCtrl):
 	},
 	btnPlace
 	{
-		"设置按钮位置", attach,
+		"按键布局设置", attach,
 		[this](const Input::Event &e)
 		{
 			pushAndShowModal(makeView<PlaceVControlsView>(vController), e);
@@ -910,7 +910,7 @@ TouchConfigView::TouchConfigView(ViewAttachParams attach, VController &vCtrl):
 	},
 	addButton
 	{
-		"添加新按钮组", attach,
+		"添加新按键组合", attach,
 		[this](const Input::Event &e)
 		{
 			pushAndShow(makeView<AddNewButtonView>(*this, vController), e);
@@ -928,10 +928,10 @@ TouchConfigView::TouchConfigView(ViewAttachParams attach, VController &vCtrl):
 	},
 	resetEmuPositions
 	{
-		"重置模拟设备位置", attach,
+		"重置布局和间距设置", attach,
 		[this](const Input::Event &e)
 		{
-			pushAndShowModal(makeView<YesNoAlertView>("将按钮重置到默认位置？",
+			pushAndShowModal(makeView<YesNoAlertView>("将所有按钮重置到默认位置？",
 				YesNoAlertView::Delegates
 				{
 					.onYes = [this]
@@ -994,11 +994,11 @@ TouchConfigView::TouchConfigView(ViewAttachParams attach, VController &vCtrl):
 	},
 	devButtonsHeading
 	{
-		"模拟设备按钮组", attach
+		"已模拟设备按键组合", attach
 	},
 	uiButtonsHeading
 	{
-		"用户界面按钮组", attach
+		"界面按键组合", attach
 	},
 	otherHeading
 	{

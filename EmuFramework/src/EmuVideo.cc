@@ -273,7 +273,7 @@ bool EmuVideo::setRenderPixelFormat(EmuSystem &sys, IG::PixelFormat fmt, Gfx::Co
 	if(colorSpace != colSpace)
 	{
 		colSpace = colorSpace;
-		log.info("set sRGB color space:{}", colorSpace == Gfx::ColorSpace::SRGB ? "on" : "off");
+		log.info("set sRGB color space:{}", colorSpace == Gfx::ColorSpace::SRGB ? "开" : "关");
 		renderFmt = {}; // reset image
 		if(colorSpace == Gfx::ColorSpace::SRGB)
 		{

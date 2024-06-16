@@ -105,8 +105,8 @@ FilePathOptionView::FilePathOptionView(ViewAttachParams attach, bool customMenu)
 				[this](View &view, const Input::Event &e)
 				{
 					pushAndShowModal(makeView<YesNoAlertView>(
-						std::format("Please select the \"Game Data/{}\" folder from an old version of the app to use its existing saves "
-							"and convert it to a regular save path (this is only needed once)", system().shortSystemName()),
+						std::format("请选择 \"游戏数据/{}\" 文件夹 从旧版本的应用程序使用其现有的保存内容 "
+							"并将其转换为常规保存路径（仅需一次）", system().shortSystemName()),
 						YesNoAlertView::Delegates
 						{
 							.onYes = [this](const Input::Event &e)

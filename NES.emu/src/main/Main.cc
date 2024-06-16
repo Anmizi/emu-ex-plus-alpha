@@ -48,7 +48,7 @@ namespace EmuEx
 {
 
 constexpr SystemLogger log{"NES.emu"};
-const char *EmuSystem::creditsViewStr = CREDITS_INFO_STRING "(c) 2011-2024\nRobert Broglia\nwww.explusalpha.com\n\nPortions (c) the\nFCEUX Team\nfceux.com";
+const char *EmuSystem::creditsViewStr = CREDITS_INFO_STRING "(c) 2011-2024\n原作者：Robert Broglia\n汉化作者：安谧子\nwww.explusalpha.com\n\nPortions (c) the\nFCEUX Team\nfceux.com";
 bool EmuSystem::hasCheats = true;
 bool EmuSystem::hasPALVideoSystem = true;
 bool EmuSystem::hasResetModes = true;
@@ -134,7 +134,7 @@ void NesSystem::readState(EmuApp &app, std::span<uint8_t> buff)
 {
 	EmuFileIO memFile{buff};
 	if(!FCEUSS_LoadFP(&memFile, SSLOADPARAM_NOBACKUP))
-		throw std::runtime_error("Invalid state data");
+		throw std::runtime_error("无效状态数据");
 }
 
 size_t NesSystem::writeState(std::span<uint8_t> buff, SaveStateFlags flags)
@@ -243,10 +243,10 @@ static const char* fceuInputToStr(int input)
 {
 	switch(input)
 	{
-		case SI_UNSET: return "Unset";
-		case SI_GAMEPAD: return "Gamepad";
+		case SI_UNSET: return "未设置";
+		case SI_GAMEPAD: return "虚拟键盘";
 		case SI_ZAPPER: return "Zapper";
-		case SI_NONE: return "None";
+		case SI_NONE: return "无";
 		default: bug_unreachable("input == %d", input); return 0;
 	}
 }
@@ -323,7 +323,7 @@ const char *regionToStr(int region)
 		case 1: return "PAL";
 		case 2: return "Dendy";
 	}
-	return "Unknown";
+	return "未知";
 }
 
 static int regionFromName(std::string_view name)
@@ -377,7 +377,7 @@ void NesSystem::loadContent(IO &io, EmuSystemCreateParams, OnLoadProgressDelegat
 		if(loaderErrorString.size())
 			throw std::runtime_error(std::exchange(loaderErrorString, {}));
 		else
-			throw std::runtime_error("Error loading game");
+			throw std::runtime_error("加载游戏错误");
 	}
 	autoDetectedRegion = regionFromName(contentFileName());
 	setRegion(optionVideoSystem, optionDefaultVideoSystem, autoDetectedRegion);

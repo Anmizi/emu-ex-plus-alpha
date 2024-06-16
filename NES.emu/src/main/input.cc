@@ -86,11 +86,11 @@ std::span<const KeyCategory> NesApp::keyCategories()
 {
 	static constexpr std::array categories
 	{
-		KeyCategory{"Gamepad", gpKeyInfo},
-		KeyCategory{"Gamepad 2", gp2KeyInfo, 1},
-		KeyCategory{"Gamepad 3", gp2KeyInfo, 2},
-		KeyCategory{"Gamepad 4", gp2KeyInfo, 3},
-		KeyCategory{"Extra Functions", exKeyInfo},
+		KeyCategory{"虚拟键盘", gpKeyInfo},
+		KeyCategory{"虚拟键盘 2", gp2KeyInfo, 1},
+		KeyCategory{"虚拟键盘 3", gp2KeyInfo, 2},
+		KeyCategory{"虚拟键盘 4", gp2KeyInfo, 3},
+		KeyCategory{"额外功能", exKeyInfo},
 	};
 	return categories;
 }
@@ -99,15 +99,15 @@ std::string_view NesApp::systemKeyCodeToString(KeyCode c)
 {
 	switch(NesKey(c))
 	{
-		case NesKey::Up: return "Up";
-		case NesKey::Right: return "Right";
-		case NesKey::Down: return "Down";
-		case NesKey::Left: return "Left";
-		case NesKey::Select: return "Select";
-		case NesKey::Start: return "Start";
+		case NesKey::Up: return "上";
+		case NesKey::Right: return "右";
+		case NesKey::Down: return "下";
+		case NesKey::Left: return "左";
+		case NesKey::Select: return "选择";
+		case NesKey::Start: return "开始";
 		case NesKey::A: return "A";
 		case NesKey::B: return "B";
-		case NesKey::toggleDiskSide: return "Eject Disk/Switch Side";
+		case NesKey::toggleDiskSide: return "弹出磁盘/切换侧";
 		default: return "";
 	}
 }
@@ -243,7 +243,7 @@ void NesSystem::handleInputAction(EmuApp *app, InputAction a)
 		{
 			FCEU_FDSInsert();
 			if(app)
-				app->postMessage("Disk ejected, push again to switch side");
+				app->postMessage("磁盘弹出，再次按下可切换至另一侧");
 		}
 		else
 		{
@@ -253,15 +253,15 @@ void NesSystem::handleInputAction(EmuApp *app, InputAction a)
 			{
 				switch(side)
 				{
-					case 0: return "Disk 1 Side A";
-					case 1: return "Disk 1 Side B";
-					case 2: return "Disk 2 Side A";
-					case 3: return "Disk 2 Side B";
+					case 0: return "磁盘 1 侧 A";
+					case 1: return "磁盘 1 侧 B";
+					case 2: return "磁盘 2 侧 A";
+					case 3: return "磁盘 2 侧 B";
 				}
 				std::unreachable();
 			};
 			if(app)
-				app->postMessage(std::format("Set {}", fdsSideToString(FCEU_FDSCurrentSide())));
+				app->postMessage(std::format("设置 {}", fdsSideToString(FCEU_FDSCurrentSide())));
 		}
 	}
 	else // gamepad bits
@@ -342,15 +342,15 @@ SystemInputDeviceDesc NesSystem::inputDeviceDesc(int idx) const
 {
 	static constexpr std::array gamepadComponents
 	{
-		InputComponentDesc{"D-Pad", dpadKeyInfo, InputComponent::dPad, LB2DO},
-		InputComponentDesc{"Face Buttons", faceKeyInfo, InputComponent::button, RB2DO},
-		InputComponentDesc{"Select", {&centerKeyInfo[0], 1}, InputComponent::button, LB2DO},
-		InputComponentDesc{"Start", {&centerKeyInfo[1], 1}, InputComponent::button, RB2DO},
-		InputComponentDesc{"Select/Start", centerKeyInfo, InputComponent::button, CB2DO, {.altConfig = true}},
-		InputComponentDesc{"P2 Start (Famicom Microphone)", p2StartKeyInfo, InputComponent::button, RB2DO, {.altConfig = true}},
+		InputComponentDesc{"十字键", dpadKeyInfo, InputComponent::dPad, LB2DO},
+		InputComponentDesc{"面部按钮", faceKeyInfo, InputComponent::button, RB2DO},
+		InputComponentDesc{"选择", {&centerKeyInfo[0], 1}, InputComponent::button, LB2DO},
+		InputComponentDesc{"开始", {&centerKeyInfo[1], 1}, InputComponent::button, RB2DO},
+		InputComponentDesc{"选择/开始", centerKeyInfo, InputComponent::button, CB2DO, {.altConfig = true}},
+		InputComponentDesc{"P2 开始 (Famicom 麦克风)", p2StartKeyInfo, InputComponent::button, RB2DO, {.altConfig = true}},
 	};
 
-	static constexpr SystemInputDeviceDesc gamepadDesc{"Gamepad", gamepadComponents};
+	static constexpr SystemInputDeviceDesc gamepadDesc{"虚拟键盘", gamepadComponents};
 
 	return gamepadDesc;
 }

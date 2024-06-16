@@ -97,19 +97,19 @@ EmuEditCheatView::EmuEditCheatView(ViewAttachParams attach, unsigned cheatIdx, R
 	},
 	addr
 	{
-		"Address",
+		"地址",
 		u"",
 		attachParams(),
 		[this](DualTextMenuItem &item, View &, Input::Event e)
 		{
-			pushAndShowNewCollectValueInputView<const char*>(attachParams(), e, "Input 4-digit hex", addrStr,
+			pushAndShowNewCollectValueInputView<const char*>(attachParams(), e, "输入4位16进制数值", addrStr,
 				[this](CollectTextInputView&, auto str)
 				{
 					unsigned a = strtoul(str, nullptr, 16);
 					if(a > 0xFFFF)
 					{
-						logMsg("addr 0x%X too large", a);
-						app().postMessage(true, "Invalid input");
+						logMsg("地址 0x%X 太大", a);
+						app().postMessage(true, "无效值");
 						postDraw();
 						return false;
 					}
@@ -124,19 +124,19 @@ EmuEditCheatView::EmuEditCheatView(ViewAttachParams attach, unsigned cheatIdx, R
 	},
 	value
 	{
-		"Value",
+		"数值",
 		u"",
 		attachParams(),
 		[this](DualTextMenuItem &item, View &, Input::Event e)
 		{
-			pushAndShowNewCollectValueInputView<const char*>(attachParams(), e, "Input 2-digit hex", valueStr,
+			pushAndShowNewCollectValueInputView<const char*>(attachParams(), e, "输入2位16进制数值", valueStr,
 				[this](CollectTextInputView&, auto str)
 				{
 					unsigned a = strtoul(str, nullptr, 16);
 					if(a > 0xFF)
 					{
-						logMsg("val 0x%X too large", a);
-						app().postMessage(true, "Invalid input");
+						logMsg("数值 0x%X 太大", a);
+						app().postMessage(true, "无效值");
 						postDraw();
 						return false;
 					}
@@ -151,12 +151,12 @@ EmuEditCheatView::EmuEditCheatView(ViewAttachParams attach, unsigned cheatIdx, R
 	},
 	comp
 	{
-		"Compare",
+		"对比",
 		u"",
 		attachParams(),
 		[this](DualTextMenuItem &item, View &, Input::Event e)
 		{
-			pushAndShowNewCollectTextInputView(attachParams(), e, "Input 2-digit hex or blank", compStr.data(),
+			pushAndShowNewCollectTextInputView(attachParams(), e, "输入2位16进制或空白", compStr.data(),
 				[this](CollectTextInputView &view, const char *str)
 				{
 					if(str)
@@ -166,8 +166,8 @@ EmuEditCheatView::EmuEditCheatView(ViewAttachParams attach, unsigned cheatIdx, R
 							unsigned a = strtoul(str, nullptr, 16);
 							if(a > 0xFF)
 							{
-								logMsg("val 0x%X too large", a);
-								app().postMessage(true, "Invalid input");
+								logMsg("数值 0x%X 太大", a);
+								app().postMessage(true, "无效值");
 								return true;
 							}
 							compStr = str;
@@ -189,17 +189,17 @@ EmuEditCheatView::EmuEditCheatView(ViewAttachParams attach, unsigned cheatIdx, R
 	},
 	ggCode
 	{
-		"GG Code",
+		"添加金手指代码",
 		u"",
 		attachParams(),
 		[this](DualTextMenuItem &item, View &, Input::Event e)
 		{
-			pushAndShowNewCollectValueInputView<const char*>(attachParams(), e, "Input Game Genie code", ggCodeStr,
+			pushAndShowNewCollectValueInputView<const char*>(attachParams(), e, "输入金手指代码", ggCodeStr,
 				[this](CollectTextInputView&, auto str)
 				{
 					if(!isValidGGCodeLen(str))
 					{
-						app().postMessage(true, "Invalid, must be 6 or 8 digits");
+						app().postMessage(true, "无效，必须是6位或8位");
 						return false;
 					}
 					ggCodeStr = str;
@@ -224,7 +224,7 @@ EmuEditCheatView::EmuEditCheatView(ViewAttachParams attach, unsigned cheatIdx, R
 	}
 	if(type)
 	{
-		resetName("Edit Code");
+		resetName("编辑代码");
 		if(a == 0 && v == 0 && compare == -1)
 			ggCodeStr.clear();
 		else
@@ -237,7 +237,7 @@ EmuEditCheatView::EmuEditCheatView(ViewAttachParams attach, unsigned cheatIdx, R
 	}
 	else
 	{
-		resetName("Edit RAM Patch");
+		resetName("编辑内存补丁");
 		IG::formatTo(addrStr, "{:x}", a);
 		addr.set2ndName(addrStr);
 		IG::formatTo(valueStr, "{:x}", v);
@@ -329,29 +329,29 @@ EmuEditCheatListView::EmuEditCheatListView(ViewAttachParams attach):
 	},
 	addGG
 	{
-		"Add Game Genie Code", attachParams(),
+		"添加金手指代码", attachParams(),
 		[this](TextMenuItem &item, View &, Input::Event e)
 		{
-			pushAndShowNewCollectTextInputView(attachParams(), e, "Input Game Genie code", "",
+			pushAndShowNewCollectTextInputView(attachParams(), e, "输入金手指代码", "",
 				[this](CollectTextInputView &view, const char *str)
 				{
 					if(str)
 					{
 						if(!isValidGGCodeLen(str))
 						{
-							app().postMessage(true, "Invalid, must be 6 or 8 digits");
+							app().postMessage(true, "无效，必须为6位或8位");
 							return true;
 						}
 						{
 							int a, v, c;
 							if(!FCEUI_DecodeGG(str, &a, &v, &c))
 							{
-								app().postMessage(true, "Invalid code");
+								app().postMessage(true, "无效代码");
 								return true;
 							}
-							if(!FCEUI_AddCheat("Unnamed Cheat", a, v, c, 1))
+							if(!FCEUI_AddCheat("未命名金手指", a, v, c, 1))
 							{
-								app().postMessage(true, "Error adding cheat");
+								app().postMessage(true, "添加金手指错误");
 								view.dismiss();
 								return false;
 							}
@@ -361,7 +361,7 @@ EmuEditCheatListView::EmuEditCheatListView(ViewAttachParams attach):
 						logMsg("added new cheat, %d total", fceuCheats);
 						FCEU_FlushGameCheats(nullptr, 0, false);
 						view.dismiss();
-						pushAndShowNewCollectTextInputView(attachParams(), {}, "Input description", "",
+						pushAndShowNewCollectTextInputView(attachParams(), {}, "输入描述", "",
 							[this](CollectTextInputView &view, const char *str)
 							{
 								if(str)
@@ -388,10 +388,10 @@ EmuEditCheatListView::EmuEditCheatListView(ViewAttachParams attach):
 	},
 	addRAM
 	{
-		"Add RAM Patch", attachParams(),
+		"添加内存补丁", attachParams(),
 		[this](TextMenuItem &item, View &, Input::Event e)
 		{
-			pushAndShowNewCollectTextInputView(attachParams(), e, "Input description", "",
+			pushAndShowNewCollectTextInputView(attachParams(), e, "输入描述", "",
 				[this](CollectTextInputView &view, const char *str)
 				{
 					if(str)
@@ -439,7 +439,7 @@ void EmuCheatsView::loadCheatItems()
 		int status = 0;
 		if(!FCEUI_GetCheat(c, &name, 0, 0, 0, &status, 0)) [[unlikely]]
 		{
-			name = "Corrupt Cheat";
+			name = "损坏的金手指";
 		}
 		cheat.emplace_back(std::move(name), attachParams(), status,
 			[this, c](BoolMenuItem &item)
@@ -453,7 +453,7 @@ void EmuCheatsView::loadCheatItems()
 				if(!item.boolValue() && type && a == 0 && v == 0 && compare == -1)
 				{
 					// Don't turn on null Game Genie codes
-					app().postMessage(true, "Game Genie code isn't set");
+					app().postMessage(true, "金手指代码未设置");
 					return;
 				}
 				item.flipBoolValue(*this);

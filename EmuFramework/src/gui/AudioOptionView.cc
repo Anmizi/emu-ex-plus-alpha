@@ -23,7 +23,7 @@ namespace EmuEx
 {
 
 AudioOptionView::AudioOptionView(ViewAttachParams attach, EmuAudio& audio_, bool customMenu):
-	TableView{"Audio Options", attach, item},
+	TableView{"音频选项", attach, item},
 	audio{audio_},
 	snd
 	{

@@ -68,10 +68,10 @@ ButtonConfigView::ButtonConfigView(ViewAttachParams attach, InputManagerView &ro
 	rootIMView{rootIMView_},
 	reset
 	{
-		"Unbind All", attach,
+		"解绑所有", attach,
 		[this](const Input::Event &e)
 		{
-			pushAndShowModal(makeView<YesNoAlertView>("Really unbind all keys in this category?",
+			pushAndShowModal(makeView<YesNoAlertView>("真的要解除该类别中所有键的绑定吗？",
 				YesNoAlertView::Delegates
 				{
 					.onYes = [this]
@@ -88,10 +88,10 @@ ButtonConfigView::ButtonConfigView(ViewAttachParams attach, InputManagerView &ro
 	},
 	resetDefaults
 	{
-		"Reset Defaults", attach,
+		"重置默认", attach,
 		[this](const Input::Event &e)
 		{
-			pushAndShowModal(makeView<YesNoAlertView>("Really reset all keys in this category to defaults?",
+			pushAndShowModal(makeView<YesNoAlertView>("真的要将该类别中的所有按键重置为默认值？",
 				YesNoAlertView::Delegates
 				{
 					.onYes = [this]
@@ -275,7 +275,7 @@ bool ButtonConfigSetView::inputEvent(const Input::Event& e, ViewInputEventParams
 					{
 						savedDev = d;
 						app().postMessage(7, false,
-							std::format("You pushed a key from device:\n{}\nPush another from it to open its config menu",
+							std::format("您从设备按压了一个键:\n{}\n再按一次，打开配置菜单",
 							inputDevData(*d).displayName));
 						postDraw();
 					}
@@ -337,9 +337,9 @@ void ButtonConfigSetView::draw(Gfx::RendererCommands&__restrict__ cmds, ViewDraw
 void ButtonConfigSetView::onAddedToController(ViewController *, const Input::Event &e)
 {
 	if(e.motionEvent())
-		text.resetString(std::format("Push up to 3 keys, release any to set:\n{}", actionStr));
+		text.resetString(std::format("最多可按 3 个键, 释放以配置:\n{}", actionStr));
 	else
-		text.resetString(std::format("Push up to 3 keys, release any to set:\n{}\n\nTo unbind:\nQuickly push [Left] key twice in previous menu", actionStr));
+		text.resetString(std::format("最多可按 3 个键, 释放以配置:\n{}\n\n解除绑定:\n在上一级菜单中快速按两次 [Left] 键", actionStr));
 	if(e.motionEvent())
 	{
 		initPointerUI();

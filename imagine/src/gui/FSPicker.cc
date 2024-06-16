@@ -216,7 +216,7 @@ void FSPicker::setEmptyPath(std::string_view message)
 	}
 	else
 	{
-		fileTableView().resetName("Select File Location");
+		fileTableView().resetName("选择文件位置");
 	}
 	if(viewRect().x)
 		place();
@@ -224,7 +224,7 @@ void FSPicker::setEmptyPath(std::string_view message)
 
 void FSPicker::setEmptyPath()
 {
-	setEmptyPath("No folder is set");
+	setEmptyPath("未设置文件夹");
 }
 
 void FSPicker::setPath(CStringView path, FS::RootPathInfo rootInfo, const Input::Event &e)
@@ -337,7 +337,7 @@ void FSPicker::pushFileLocationsView(const Input::Event &e)
 	public:
 		FileLocationsTextTableView(ViewAttachParams attach,
 			std::vector<FS::PathLocation> locations, size_t customItems):
-				TextTableView{"File Locations", attach, locations.size() + customItems},
+				TextTableView{"文件位置", attach, locations.size() + customItems},
 				locations_{std::move(locations)} {}
 		const std::vector<FS::PathLocation> &locations() const { return locations_; }
 
@@ -347,10 +347,10 @@ void FSPicker::pushFileLocationsView(const Input::Event &e)
 
 	int customItems = 1 + Config::envIsLinux + appContext().hasSystemPathPicker() + appContext().hasSystemDocumentPicker();
 	auto view = makeView<FileLocationsTextTableView>(appContext().rootFileLocations(), customItems);
-	static constexpr std::string_view failedSystemPickerMsg = "This device doesn't have a document browser, please select a media folder instead";
+	static constexpr std::string_view failedSystemPickerMsg = "此设备没有文档浏览器，请选择一个媒体文件夹来代替";
 	if(appContext().hasSystemPathPicker())
 	{
-		view->appendItem("Browse For Folder",
+		view->appendItem("浏览文件夹",
 			[this](View &view, const Input::Event &e)
 			{
 				if(!appContext().showSystemPathPicker())
@@ -362,7 +362,7 @@ void FSPicker::pushFileLocationsView(const Input::Event &e)
 	}
 	if(mode_ != Mode::DIR && appContext().hasSystemDocumentPicker())
 	{
-		view->appendItem("Browse For File",
+		view->appendItem("浏览文件",
 			[this](View &view, const Input::Event &e)
 			{
 				if(!appContext().showSystemDocumentPicker())
@@ -389,18 +389,18 @@ void FSPicker::pushFileLocationsView(const Input::Event &e)
 	}
 	if(Config::envIsLinux)
 	{
-		view->appendItem("Root Filesystem",
+		view->appendItem("根文件系统",
 			[this](View &view, const Input::Event &e)
 			{
 				changeDirByInput("/", {}, e, DepthMode::reset);
 				view.dismiss();
 			});
 	}
-	view->appendItem("Custom Path",
+	view->appendItem("自定义路径",
 		[this](const Input::Event &e)
 		{
 			auto textInputView = makeView<CollectTextInputView>(
-				"Input a directory path", root.path, Gfx::TextureSpan{},
+				"输入文件夹路径", root.path, Gfx::TextureSpan{},
 				[this](CollectTextInputView &view, const char *str)
 				{
 					if(!str || !strlen(str))
@@ -560,7 +560,7 @@ void FSPicker::listDirectory(CStringView path, ThreadStop &stop)
 		}
 		else // no entries, show a message instead
 		{
-			msgText.resetString("Empty Directory");
+			msgText.resetString("空文件夹");
 			msgText.compile();
 		}
 	}
@@ -568,8 +568,8 @@ void FSPicker::listDirectory(CStringView path, ThreadStop &stop)
 	{
 		log.error("can't open:{}", path);
 		auto ec = err.code();
-		std::string_view extraMsg = mode_ == Mode::FILE_IN_DIR ? "" : "\nPick a path from the top bar";
-		msgText.resetString(std::format("Can't open directory:\n{}{}", ec.message(), extraMsg));
+		std::string_view extraMsg = mode_ == Mode::FILE_IN_DIR ? "" : "\n从顶栏选择路径";
+		msgText.resetString(std::format("无法打开文件夹:\n{}{}", ec.message(), extraMsg));
 		msgText.compile();
 	}
 }

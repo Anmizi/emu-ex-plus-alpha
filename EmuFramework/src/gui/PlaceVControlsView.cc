@@ -28,7 +28,7 @@ constexpr std::array snapPxSizes{0, 2, 4, 8, 16, 32, 64};
 PlaceVControlsView::PlaceVControlsView(ViewAttachParams attach, VController &vController_):
 	View{attach},
 	exitText{attach.rendererTask, "退出", &defaultFace()},
-	snapText{attach.rendererTask, "快门: 0px", &defaultFace()},
+	snapText{attach.rendererTask, "网格: 0px", &defaultFace()},
 	vController{vController_},
 	gridIdxs{attach.rendererTask, 2, 2},
 	quads{attach.rendererTask, {.size = 4}, gridIdxs}

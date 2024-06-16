@@ -92,7 +92,7 @@ void IdentInputDeviceView::draw(Gfx::RendererCommands&__restrict__ cmds, ViewDra
 
 InputManagerView::InputManagerView(ViewAttachParams attach,
 	InputManager &inputManager_):
-	TableView{"按键/游戏板输入设置", attach, item},
+	TableView{"外接手柄设置", attach, item},
 	inputManager{inputManager_},
 	deleteDeviceConfig
 	{
@@ -140,13 +140,13 @@ InputManagerView::InputManagerView(ViewAttachParams attach,
 	},
 	deleteProfile
 	{
-		"删除已保存的按键配置文件", attach,
+		"删除已保存的按键配置", attach,
 		[this](TextMenuItem &item, View &, const Input::Event &e)
 		{
 			auto &customKeyConfigs = inputManager.customKeyConfigs;
 			if(!customKeyConfigs.size())
 			{
-				app().postMessage("没有保存配置文件");
+				app().postMessage("没有保存配置");
 				return;
 			}
 			auto multiChoiceView = makeViewWithName<TextTableView>(item, customKeyConfigs.size());

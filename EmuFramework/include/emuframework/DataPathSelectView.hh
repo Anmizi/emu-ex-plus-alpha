@@ -54,7 +54,7 @@ public:
 		TableView{IG_forward(name), attach, item},
 		selectFolder
 		{
-			"Select Folder", attach,
+			"选择文件夹", attach,
 			[=](View &view, const Input::Event &e)
 			{
 				auto fPicker = view.makeView<FilePicker>(FSPicker::Mode::DIR, EmuSystem::NameFilterFunc{}, e);
@@ -74,7 +74,7 @@ public:
 		},
 		selectFile
 		{
-			mode == DataPathSelectMode::File ? "Select File" : "Select Archive File", attach,
+			mode == DataPathSelectMode::File ? "选择文件" : "选择压缩文件", attach,
 			[=](View &view, const Input::Event &e)
 			{
 				auto &thisView = asThis(view);
@@ -86,7 +86,7 @@ public:
 					{
 						if(mode == DataPathSelectMode::Folder && !EmuApp::hasArchiveExtension(displayName))
 						{
-							picker.applicationAs<EmuApp>().postErrorMessage("File doesn't have a valid extension");
+							picker.applicationAs<EmuApp>().postErrorMessage("文件后缀名不合法");
 							return;
 						}
 						if(!onFileChange(path, FS::file_type::regular))
@@ -100,7 +100,7 @@ public:
 		},
 		unset
 		{
-			"Unset", attach,
+			"复原", attach,
 			[=](View &view)
 			{
 				onFileChange("", FS::file_type::none);

@@ -112,8 +112,8 @@ uint32 VDC::GetRegister(const unsigned int id, char *special, const uint32 speci
 
 	if(special)
 	{
-	 trio_snprintf(special, special_len, "Sprite Hit IRQ: %s, Sprite Overflow IRQ: %s, RCR IRQ: %s, VBlank IRQ: %s, Sprites: %s, Background: %s", (value & 1) ? "On" : "Off", (value & 2) ? "On" : "Off",
-	        (value & 4) ? "On" : "Off", (value & 8) ? "On" : "Off", (value & 0x40) ? "On" : "Off", (value & 0x80) ? "On" : "Off");
+	 trio_snprintf(special, special_len, "Sprite Hit IRQ: %s, Sprite Overflow IRQ: %s, RCR IRQ: %s, VBlank IRQ: %s, Sprites: %s, Background: %s", (value & 1) ? "开" : "关", (value & 2) ? "开" : "关",
+	        (value & 4) ? "开" : "关", (value & 8) ? "开" : "关", (value & 0x40) ? "开" : "关", (value & 0x80) ? "开" : "关");
 	}
 	break;
 
@@ -178,8 +178,8 @@ uint32 VDC::GetRegister(const unsigned int id, char *special, const uint32 speci
 	if(special)
 	{
 	 trio_snprintf(special, special_len, "SATB DMA IRQ: %s, VRAM DMA IRQ: %s, DMA Source Address: %s, DMA Dest Address: %s, Auto SATB DMA: %s",
-        	(DCR & 0x1) ? "On" : "Off", (DCR & 0x2) ? "On" : "Off", (DCR & 0x4) ? "Decrement" : "Increment", (DCR & 0x8) ? "Decrement" : "Increment", 
-	        (DCR & 0x10) ? "On" : "Off");
+        	(DCR & 0x1) ? "开" : "关", (DCR & 0x2) ? "开" : "关", (DCR & 0x4) ? "Decrement" : "Increment", (DCR & 0x8) ? "Decrement" : "Increment", 
+	        (DCR & 0x10) ? "开" : "关");
 	}
 	break;
 
