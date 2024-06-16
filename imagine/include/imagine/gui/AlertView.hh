@@ -89,7 +89,7 @@ public:
 		} {}
 
 	YesNoAlertView(ViewAttachParams attach, UTF16Convertible auto &&label, Delegates delegates):
-		YesNoAlertView{attach, IG_forward(label), u"Yes", u"No", delegates} {}
+		YesNoAlertView{attach, IG_forward(label), u"是", u"否", delegates} {}
 
 	void setOnYes(TextMenuItem::SelectDelegate del);
 	void setOnNo(TextMenuItem::SelectDelegate del);

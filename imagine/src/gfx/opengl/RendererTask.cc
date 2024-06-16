@@ -327,7 +327,7 @@ void RendererTask::setDebugOutput(bool on)
 	{
 		return;
 	}
-	log.info("set context:{} debug output:{}", (NativeGLContext)glContext(), on ? "on" : "off");
+	log.info("set context:{} debug output:{}", (NativeGLContext)glContext(), on ? "开" : "关");
 	debugEnabled = on;
 	run(
 		[&support = renderer().support, on]()

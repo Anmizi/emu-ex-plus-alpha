@@ -362,7 +362,7 @@ FrameTimingView::FrameTimingView(ViewAttachParams attach):
 		{
 			std::vector<TextMenuItem> items;
 			auto setRateDel = [this](TextMenuItem &item) { app().overrideScreenFrameRate = std::bit_cast<FrameRate>(item.id); };
-			items.emplace_back("Off", attach, setRateDel, MenuItem::Config{.id = 0});
+			items.emplace_back("关", attach, setRateDel, MenuItem::Config{.id = 0});
 			for(auto rate : app().emuScreen().supportedFrameRates())
 				items.emplace_back(std::format("{:g}Hz", rate), attach, setRateDel, MenuItem::Config{.id = std::bit_cast<MenuId>(rate)});
 			return items;

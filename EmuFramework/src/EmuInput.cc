@@ -543,25 +543,25 @@ std::string_view toString(AppKeyCode code)
 {
 	switch(code)
 	{
-		case AppKeyCode::openContent: return "Open Content";
-		case AppKeyCode::closeContent: return "Close Content";
-		case AppKeyCode::openSystemActions: return "Open System Actions";
-		case AppKeyCode::saveState: return "Save State";
-		case AppKeyCode::loadState: return "Load State";
-		case AppKeyCode::decStateSlot: return "Decrement State Slot";
-		case AppKeyCode::incStateSlot: return "Increment State Slot";
-		case AppKeyCode::fastForward: return "Fast-forward";
-		case AppKeyCode::takeScreenshot: return "Take Screenshot";
-		case AppKeyCode::openMenu: return "Open Menu";
-		case AppKeyCode::toggleFastForward: return "Toggle Fast-forward";
-		case AppKeyCode::turboModifier: return "Turbo Modifier";
-		case AppKeyCode::exitApp: return "Exit App";
-		case AppKeyCode::slowMotion: return "Slow-motion";
-		case AppKeyCode::toggleSlowMotion: return "Toggle Slow-motion";
-		case AppKeyCode::rewind: return "Rewind One State";
-		case AppKeyCode::softReset: return "Soft Reset";
-		case AppKeyCode::hardReset: return "Hard Reset";
-		case AppKeyCode::resetMenu: return "Open Reset Menu";
+		case AppKeyCode::openContent: return "打开游戏";
+		case AppKeyCode::closeContent: return "关闭游戏";
+		case AppKeyCode::openSystemActions: return "打开系统动作";
+		case AppKeyCode::saveState: return "保存存档";
+		case AppKeyCode::loadState: return "加载存档";
+		case AppKeyCode::decStateSlot: return "减少状态插槽";
+		case AppKeyCode::incStateSlot: return "增加状态插槽";
+		case AppKeyCode::fastForward: return "快进";
+		case AppKeyCode::takeScreenshot: return "截图";
+		case AppKeyCode::openMenu: return "打开菜单";
+		case AppKeyCode::toggleFastForward: return "切换快进";
+		case AppKeyCode::turboModifier: return "涡轮增压器";
+		case AppKeyCode::exitApp: return "退出应用";
+		case AppKeyCode::slowMotion: return "慢动作";
+		case AppKeyCode::toggleSlowMotion: return "切换慢动作";
+		case AppKeyCode::rewind: return "倒带一个状态";
+		case AppKeyCode::softReset: return "软重置";
+		case AppKeyCode::hardReset: return "硬重置";
+		case AppKeyCode::resetMenu: return "打开重置菜单";
 	};
 	return "";
 }

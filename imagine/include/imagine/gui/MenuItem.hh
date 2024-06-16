@@ -281,7 +281,7 @@ public:
 
 	BoolMenuItem(UTF16Convertible auto &&name, ViewAttachParams attach, bool val,
 		SelectDelegate onSelect, Config conf = Config{}):
-		BaseDualTextMenuItem{IG_forward(name), val ? u"On" : u"Off", attach, conf},
+		BaseDualTextMenuItem{IG_forward(name), val ? u"开" : u"关", attach, conf},
 		onSelect{onSelect}
 	{
 		if(val)
@@ -309,7 +309,7 @@ public:
 	bool inputEvent(const Input::Event&, ViewInputEventParams) override;
 
 protected:
-	UTF16String offStr{u"Off"}, onStr{u"On"};
+	UTF16String offStr{u"开"}, onStr{u"关"};
 };
 
 class MultiChoiceMenuItem : public BaseDualTextMenuItem
