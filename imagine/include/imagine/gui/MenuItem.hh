@@ -309,7 +309,7 @@ public:
 	bool inputEvent(const Input::Event&, ViewInputEventParams) override;
 
 protected:
-	UTF16String offStr{u"开"}, onStr{u"关"};
+	UTF16String offStr{u"关"}, onStr{u"开"};
 };
 
 class MultiChoiceMenuItem : public BaseDualTextMenuItem
