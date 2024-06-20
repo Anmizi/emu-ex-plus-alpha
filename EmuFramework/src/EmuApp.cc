@@ -132,15 +132,15 @@ public:
 		AlertView
 		{
 			attach,
-			"Really Exit? (Push Back/Escape again to confirm)",
+			"真的要退出吗？（再次按下/退出确认）",
 			hasEmuContent ? 3u : 2u
 		}
 	{
-		item.emplace_back("Yes", attach, [this](){ appContext().exit(); });
-		item.emplace_back("No", attach, [](){});
+		item.emplace_back("是", attach, [this](){ appContext().exit(); });
+		item.emplace_back("否", attach, [](){});
 		if(hasEmuContent)
 		{
-			item.emplace_back("Close Menu", attach, [this](){ app().showEmulation(); });
+			item.emplace_back("关闭菜单", attach, [this](){ app().showEmulation(); });
 		}
 	}
 
@@ -420,7 +420,7 @@ void EmuApp::mainInitCommon(IG::ApplicationInitParams initParams, IG::Applicatio
 				suspendEmulation(*this);
 				if(showsNotificationIcon)
 				{
-					auto title = std::format("{} was suspended", ctx.applicationName);
+					auto title = std::format("{} 已暂停", ctx.applicationName);
 					ctx.addNotification(title, title, system().contentDisplayName());
 				}
 			}
@@ -564,11 +564,11 @@ void EmuApp::mainInitCommon(IG::ApplicationInitParams initParams, IG::Applicatio
 						inputManager.updateInputDevices(ctx);
 						if(notifyOnInputDeviceChange && (e.change == Input::DeviceChange::added || e.change == Input::DeviceChange::removed))
 						{
-							postMessage(2, 0, std::format("{} {}", inputDevData(e.device).displayName, e.change == Input::DeviceChange::added ? "connected" : "disconnected"));
+							postMessage(2, 0, std::format("{} {}", inputDevData(e.device).displayName, e.change == Input::DeviceChange::added ? "已连接" : "已断开"));
 						}
 						else if(e.change == Input::DeviceChange::connectError)
 						{
-							postMessage(2, 1, std::format("{} had a connection error", e.device.name()));
+							postMessage(2, 1, std::format("{} 出现连接错误", e.device.name()));
 						}
 						viewController().onInputDevicesChanged();
 					},
@@ -753,7 +753,7 @@ void EmuApp::launchSystem(const Input::Event &e)
 			!autosaveManager.saveOnlyBackupMemory && stateIsOlderThanBackupMemory())
 		{
 			viewController().pushAndShowModal(std::make_unique<YesNoAlertView>(attachParams(),
-				"Autosave state timestamp is older than the contents of backup memory, really load it even though progress may be lost?",
+				"自动保存状态时间戳比备份内存的内容旧，即使进度可能会丢失，是否真的要加载它？",
 				YesNoAlertView::Delegates
 				{
 					.onYes = [this]{ finishLaunch(*this, LoadAutosaveMode::Normal); },
@@ -783,7 +783,7 @@ void EmuApp::handleOpenFileCommand(CStringView path)
 	auto name = appContext().fileUriDisplayName(path);
 	if(name.empty())
 	{
-		postErrorMessage(std::format("Can't access path name for:\n{}", path));
+		postErrorMessage(std::format("无法访问的路径名:\n{}", path));
 		return;
 	}
 	if(appContext().fileUriType(path) == FS::file_type::directory)
@@ -923,7 +923,7 @@ void EmuApp::onSystemCreated()
 	updateVideoContentRotation();
 	if(!rewindManager.reset(system().stateSize()))
 	{
-		postErrorMessage(4, "Not enough memory for rewind states");
+		postErrorMessage(4, "没有足够的内存用于倒带状态");
 	}
 	viewController().onSystemCreated();
 }
@@ -933,7 +933,7 @@ void EmuApp::promptSystemReloadDueToSetOption(ViewAttachParams attach, const Inp
 	if(!system().hasContent())
 		return;
 	viewController().pushAndShowModal(std::make_unique<YesNoAlertView>(attach,
-		"This option takes effect next time the system starts. Restart it now?",
+		"此选项将在系统下次启动时生效。现在重新启动？",
 		YesNoAlertView::Delegates
 		{ .onYes = [this, params]
 			{
@@ -952,7 +952,7 @@ void EmuApp::unpostMessage()
 void EmuApp::printScreenshotResult(bool success)
 {
 	postMessage(3, !success, std::format("{}{}",
-		success ? "Wrote screenshot at " : "Error writing screenshot at ",
+		success ? "保存屏幕截图到" : "保存屏幕截图错误",
 		appContext().formatDateAndTime(WallClock::now())));
 }
 
@@ -963,7 +963,7 @@ void EmuApp::createSystemWithMedia(IO io, CStringView path, std::string_view dis
 	assert(strlen(path));
 	if(!EmuApp::hasArchiveExtension(displayName) && !EmuSystem::defaultFsFilter(displayName))
 	{
-		postErrorMessage("File doesn't have a valid extension");
+		postErrorMessage("文件的扩展名无效");
 		return;
 	}
 	if(!EmuApp::willCreateSystem(attachParams, e))
@@ -1033,7 +1033,7 @@ void EmuApp::setupStaticBackupMemoryFile(FileIO &io, std::string_view ext, size_
 		return;
 	io = system().openStaticBackupMemoryFile(system().contentSaveFilePath(ext), size, initValue);
 	if(!io) [[unlikely]]
-		throw std::runtime_error(std::format("Error opening {}, please verify save path has write access", system().contentNameExt(ext)));
+		throw std::runtime_error(std::format("打开｛｝时出错，请验证保存路径是否具有写访问权限", system().contentNameExt(ext)));
 }
 
 void EmuApp::readState(std::span<uint8_t> buff)
@@ -1060,7 +1060,7 @@ bool EmuApp::saveState(CStringView path)
 {
 	if(!system().hasContent())
 	{
-		postErrorMessage("System not running");
+		postErrorMessage("系统未运行");
 		return false;
 	}
 	syncEmulationThread();
@@ -1072,7 +1072,7 @@ bool EmuApp::saveState(CStringView path)
 	}
 	catch(std::exception &err)
 	{
-		postErrorMessage(4, std::format("Can't save state:\n{}", err.what()));
+		postErrorMessage(4, std::format("无法保存状态:\n{}", err.what()));
 		return false;
 	}
 }
@@ -1086,7 +1086,7 @@ bool EmuApp::loadState(CStringView path)
 {
 	if(!system().hasContent()) [[unlikely]]
 	{
-		postErrorMessage("System not running");
+		postErrorMessage("系统未运行");
 		return false;
 	}
 	log.info("loading state {}", path);
@@ -1100,9 +1100,9 @@ bool EmuApp::loadState(CStringView path)
 	catch(std::exception &err)
 	{
 		if(system().hasContent() && !hasWriteAccessToDir(system().contentSaveDirectory()))
-			postErrorMessage(8, "Save folder inaccessible, please set it in Options➔File Paths➔Saves");
+			postErrorMessage(8, "保存文件夹不可访问，请在\"选项\"中进行设置➔\"文件路径\"➔\"保存\"");
 		else
-			postErrorMessage(4, std::format("Can't load state:\n{}", err.what()));
+			postErrorMessage(4, std::format("无法加载状态:\n{}", err.what()));
 		return false;
 	}
 }
@@ -1137,7 +1137,7 @@ FS::PathString EmuApp::validSearchPath(const FS::PathString &path) const
 
 std::unique_ptr<YesNoAlertView> EmuApp::makeCloseContentView()
 {
-	return std::make_unique<YesNoAlertView>(attachParams(), "Really close current content?",
+	return std::make_unique<YesNoAlertView>(attachParams(), "真的关闭当前游戏吗？",
 		YesNoAlertView::Delegates
 		{
 			.onYes = [this]
@@ -1348,7 +1348,7 @@ bool EmuApp::writeScreenshot(IG::PixmapView pix, CStringView path)
 
 FS::PathString EmuApp::makeNextScreenshotFilename()
 {
-	static constexpr std::string_view subDirName = "screenshots";
+	static constexpr std::string_view subDirName = "截图";
 	auto &sys = system();
 	auto userPath = sys.userPath(userScreenshotPath);
 	sys.createContentLocalDirectory(userPath, subDirName);
@@ -1659,7 +1659,7 @@ std::unique_ptr<View> EmuApp::makeView(ViewAttachParams attach, ViewID id)
 		case ViewID::SYSTEM_OPTIONS: return std::make_unique<SystemOptionView>(attach);
 		case ViewID::FILE_PATH_OPTIONS: return std::make_unique<FilePathOptionView>(attach);
 		case ViewID::GUI_OPTIONS: return std::make_unique<GUIOptionView>(attach);
-		default: bug_unreachable("Tried to make non-existing view ID:%d", (int)id);
+		default: bug_unreachable("尝试创建不存在的视图 ID:%d", (int)id);
 	}
 }
 

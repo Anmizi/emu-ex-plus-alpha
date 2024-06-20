@@ -286,7 +286,7 @@ public:
 	ConsoleOptionView(ViewAttachParams attach):
 		TableView
 		{
-			"Console Options",
+			"控制台选项",
 			attach,
 			menuItem
 		} {}
