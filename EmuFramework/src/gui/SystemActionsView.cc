@@ -37,15 +37,15 @@ constexpr SystemLogger log{"SystemActionsView"};
 
 static auto autoSaveName(EmuApp &app)
 {
-	return std::format("自动保存插槽 ({})", app.autosaveManager.slotFullName());
+	return std::format("自动存档 ({})", app.autosaveManager.slotFullName());
 }
 
 static std::string saveAutosaveName(EmuApp &app)
 {
 	auto &autosaveManager = app.autosaveManager;
 	if(!autosaveManager.timerFrequency().count())
-		return "保存自动保存状态";
-	return std::format("保存自动保存状态（计时器在 {:%M:%S} 内）",
+		return "自动保存存档";
+	return std::format("自动保存存档（计时器在 {:%M:%S} 内）",
 		duration_cast<Seconds>(autosaveManager.saveTimer.nextFireTime()));
 }
 
@@ -84,7 +84,7 @@ SystemActionsView::SystemActionsView(ViewAttachParams attach, bool customMenu):
 		{
 			if(!item.active())
 				return;
-			pushAndShowModal(makeView<YesNoAlertView>("真的保存状态吗？",
+			pushAndShowModal(makeView<YesNoAlertView>("是否存档？",
 				YesNoAlertView::Delegates
 				{
 					.onYes = [this]
@@ -97,7 +97,7 @@ SystemActionsView::SystemActionsView(ViewAttachParams attach, bool customMenu):
 	},
 	revertAutosave
 	{
-		"加载自动保存状态", attach,
+		"加载自动存档", attach,
 		[this](TextMenuItem &item, const Input::Event &e)
 		{
 			if(!item.active())
@@ -105,10 +105,10 @@ SystemActionsView::SystemActionsView(ViewAttachParams attach, bool customMenu):
 			auto saveTime = app().autosaveManager.stateTimeAsString();
 			if(saveTime.empty())
 			{
-				app().postMessage("无保存状态");
+				app().postMessage("无存档");
 				return;
 			}
-			pushAndShowModal(makeView<YesNoAlertView>(std::format("真的要从 {} 加载状态吗？", saveTime),
+			pushAndShowModal(makeView<YesNoAlertView>(std::format("真的要从 {} 读档吗？", saveTime),
 				YesNoAlertView::Delegates
 				{
 					.onYes = [this]
@@ -121,7 +121,7 @@ SystemActionsView::SystemActionsView(ViewAttachParams attach, bool customMenu):
 	},
 	stateSlot
 	{
-		"手动保存状态", attach,
+		"手动保存存档", attach,
 		[this](const Input::Event &e)
 		{
 			pushAndShow(makeView<StateSlotView>(), e);
@@ -129,7 +129,7 @@ SystemActionsView::SystemActionsView(ViewAttachParams attach, bool customMenu):
 	},
 	addLauncherIcon
 	{
-		"为启动器添加内容快捷方式", attach,
+		"添加游戏快捷方式到桌面", attach,
 		[this](const Input::Event &e)
 		{
 			if(!system().hasContent())
@@ -174,7 +174,7 @@ SystemActionsView::SystemActionsView(ViewAttachParams attach, bool customMenu):
 	},
 	resetSessionOptions
 	{
-		"重置保存的选项", attach,
+		"重置已保存设置", attach,
 		[this](const Input::Event &e)
 		{
 			if(!app().hasSavedSessionOptions())
@@ -193,7 +193,7 @@ SystemActionsView::SystemActionsView(ViewAttachParams attach, bool customMenu):
 	},
 	close
 	{
-		"关闭内容", attach,
+		"关闭游戏", attach,
 		[this](const Input::Event &e)
 		{
 			pushAndShowModal(app().makeCloseContentView(), e);

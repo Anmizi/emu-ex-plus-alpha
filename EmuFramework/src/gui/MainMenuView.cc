@@ -76,7 +76,7 @@ MainMenuView::MainMenuView(ViewAttachParams attach, bool customMenu):
 	},
 	systemActions
 	{
-		"系统操作", attach,
+		"游戏菜单", attach,
 		[this](const Input::Event &e)
 		{
 			if(!system().hasContent())

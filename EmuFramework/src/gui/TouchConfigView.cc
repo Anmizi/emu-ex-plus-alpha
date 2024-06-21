@@ -815,10 +815,10 @@ TouchConfigView::TouchConfigView(ViewAttachParams attach, VController &vCtrl):
 		{"12mm",  attach, {.id = 1200}},
 		{"14mm",  attach, {.id = 1400}},
 		{"15mm",  attach, {.id = 1500}},
-		{"Custom Value", attach,
+		{"自定义值", attach,
 			[this](const Input::Event &e)
 			{
-				pushAndShowNewCollectValueRangeInputView<float, 3, 30>(attachParams(), e, "Input 3.0 to 30.0", "",
+				pushAndShowNewCollectValueRangeInputView<float, 3, 30>(attachParams(), e, "输入 3.0 到 30.0", "",
 					[this](CollectTextInputView &, auto val)
 					{
 						int scaledIntVal = val * 100.0;

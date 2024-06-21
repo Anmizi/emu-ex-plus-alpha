@@ -48,7 +48,7 @@ class ConsoleOptionView : public TableView, public MainAppHelper
 {
 	BoolMenuItem fourScore
 	{
-		"4-Player Adapter", attachParams(),
+		"4-人适配器", attachParams(),
 		(bool)system().optionFourScore,
 		[this](BoolMenuItem &item, View &, Input::Event e)
 		{
@@ -70,10 +70,10 @@ class ConsoleOptionView : public TableView, public MainAppHelper
 
 	TextMenuItem inputPortsItem[4]
 	{
-		{"Auto",          attachParams(), {.id = packInputEnums(SI_UNSET, SI_UNSET)}},
-		{"Gamepads",      attachParams(), {.id = packInputEnums(SI_GAMEPAD, SI_GAMEPAD)}},
-		{"Gun (2P, NES)", attachParams(), {.id = packInputEnums(SI_GAMEPAD, SI_ZAPPER)}},
-		{"Gun (1P, VS)",  attachParams(), {.id = packInputEnums(SI_ZAPPER, SI_GAMEPAD)}},
+		{"自动",          attachParams(), {.id = packInputEnums(SI_UNSET, SI_UNSET)}},
+		{"手柄",      attachParams(), {.id = packInputEnums(SI_GAMEPAD, SI_GAMEPAD)}},
+		{"光枪(2P, NES)", attachParams(), {.id = packInputEnums(SI_GAMEPAD, SI_ZAPPER)}},
+		{"光枪(1P, VS)",  attachParams(), {.id = packInputEnums(SI_ZAPPER, SI_GAMEPAD)}},
 	};
 
 	MultiChoiceMenuItem inputPorts
@@ -95,7 +95,7 @@ class ConsoleOptionView : public TableView, public MainAppHelper
 
 	BoolMenuItem fcMic
 	{
-		"P2 Start As Microphone", attachParams(),
+		"P2启动为麦克风", attachParams(),
 		replaceP2StartWithMicrophone,
 		[this](BoolMenuItem &item, View &, Input::Event e)
 		{
@@ -188,7 +188,7 @@ class ConsoleOptionView : public TableView, public MainAppHelper
 
 	MultiChoiceMenuItem visibleVideoLines
 	{
-		"Visible Lines", attachParams(),
+		"可视行", attachParams(),
 		MenuId{packVideoLines(system().optionStartVideoLine, system().optionVisibleVideoLines)},
 		visibleVideoLinesItem,
 		{
@@ -207,7 +207,7 @@ class ConsoleOptionView : public TableView, public MainAppHelper
 
 	BoolMenuItem horizontalVideoCrop
 	{
-		"裁剪两侧的 8 个像素", attachParams(),
+		"裁剪两侧的8个像素", attachParams(),
 		(bool)system().optionHorizontalVideoCrop,
 		[this](BoolMenuItem &item)
 		{

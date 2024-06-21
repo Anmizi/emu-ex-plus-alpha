@@ -546,10 +546,10 @@ std::string_view toString(AppKeyCode code)
 		case AppKeyCode::openContent: return "打开游戏";
 		case AppKeyCode::closeContent: return "关闭游戏";
 		case AppKeyCode::openSystemActions: return "打开游戏菜单";
-		case AppKeyCode::saveState: return "保存存档";
-		case AppKeyCode::loadState: return "加载存档";
-		case AppKeyCode::decStateSlot: return "减少状态插槽";
-		case AppKeyCode::incStateSlot: return "增加状态插槽";
+		case AppKeyCode::saveState: return "存档";
+		case AppKeyCode::loadState: return "读档";
+		case AppKeyCode::decStateSlot: return "减少存档插槽";
+		case AppKeyCode::incStateSlot: return "增加存档插槽";
 		case AppKeyCode::fastForward: return "快动作";
 		case AppKeyCode::takeScreenshot: return "截图";
 		case AppKeyCode::openMenu: return "打开菜单";

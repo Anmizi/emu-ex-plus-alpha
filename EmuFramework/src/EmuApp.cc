@@ -753,7 +753,7 @@ void EmuApp::launchSystem(const Input::Event &e)
 			!autosaveManager.saveOnlyBackupMemory && stateIsOlderThanBackupMemory())
 		{
 			viewController().pushAndShowModal(std::make_unique<YesNoAlertView>(attachParams(),
-				"自动保存状态时间戳比备份内存的内容旧，即使进度可能会丢失，是否真的要加载它？",
+				"自动保存存档时间戳比备份内存的内容旧，即使进度可能会丢失，是否真的要加载它？",
 				YesNoAlertView::Delegates
 				{
 					.onYes = [this]{ finishLaunch(*this, LoadAutosaveMode::Normal); },
@@ -1072,7 +1072,7 @@ bool EmuApp::saveState(CStringView path)
 	}
 	catch(std::exception &err)
 	{
-		postErrorMessage(4, std::format("无法保存状态:\n{}", err.what()));
+		postErrorMessage(4, std::format("无法存档:\n{}", err.what()));
 		return false;
 	}
 }
@@ -1102,7 +1102,7 @@ bool EmuApp::loadState(CStringView path)
 		if(system().hasContent() && !hasWriteAccessToDir(system().contentSaveDirectory()))
 			postErrorMessage(8, "保存文件夹不可访问，请在\"选项\"中进行设置➔\"文件路径\"➔\"保存\"");
 		else
-			postErrorMessage(4, std::format("无法加载状态:\n{}", err.what()));
+			postErrorMessage(4, std::format("无法读档:\n{}", err.what()));
 		return false;
 	}
 }

@@ -191,7 +191,7 @@ void AutosaveSlotView::refreshSlots()
 {
 	mainSlot =
 	{
-		std::format("Main: {}", slotDescription(app(), "")),
+		std::format("主档案: {}", slotDescription(app(), "")),
 		attachParams(), [this]()
 		{
 			if(app().autosaveManager.setSlot(""))

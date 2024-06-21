@@ -27,19 +27,19 @@ constexpr SystemLogger log{"StateSlotView"};
 
 static auto slotHeadingName(EmuSystem &sys)
 {
-	return std::format("设置状态插槽 ({})", sys.stateSlot());
+	return std::format("设置存档插槽 ({})", sys.stateSlot());
 }
 
 StateSlotView::StateSlotView(ViewAttachParams attach):
-	TableView{"保存状态", attach, menuItems},
+	TableView{"存档", attach, menuItems},
 	load
 	{
-		"加载状态", attach,
+		"读档", attach,
 		[this](TextMenuItem &item, View &, const Input::Event &e)
 		{
 			if(!item.active())
 				return;
-			pushAndShowModal(makeView<YesNoAlertView>("真的加载状态？",
+			pushAndShowModal(makeView<YesNoAlertView>("是否读档？",
 				YesNoAlertView::Delegates
 				{
 					.onYes = [this]
@@ -52,7 +52,7 @@ StateSlotView::StateSlotView(ViewAttachParams attach):
 	},
 	save
 	{
-		"保存状态", attach,
+		"存档", attach,
 		[this](const Input::Event &e)
 		{
 			if(app().shouldOverwriteExistingState())
@@ -61,7 +61,7 @@ StateSlotView::StateSlotView(ViewAttachParams attach):
 			}
 			else
 			{
-				pushAndShowModal(makeView<YesNoAlertView>("真的覆写状态？",
+				pushAndShowModal(makeView<YesNoAlertView>("是否覆写存档？",
 					YesNoAlertView::Delegates{.onYes = [this]{ doSaveState(); }}), e);
 			}
 		}

@@ -66,10 +66,10 @@ SystemOptionView::SystemOptionView(ViewAttachParams attach, bool customMenu):
 	},
 	autosaveLaunchItem
 	{
-		{"主插槽",            attach, {.id = AutosaveLaunchMode::Load}},
-		{"主插槽（无状态）", attach, {.id = AutosaveLaunchMode::LoadNoState}},
-		{"无保存插槽",         attach, {.id = AutosaveLaunchMode::NoSave}},
-		{"选择插槽",          attach, {.id = AutosaveLaunchMode::Ask}},
+		{"主档案",            attach, {.id = AutosaveLaunchMode::Load}},
+		{"主档案(无即时)", attach, {.id = AutosaveLaunchMode::LoadNoState}},
+		{"无档案",         attach, {.id = AutosaveLaunchMode::NoSave}},
+		{"选择档案",          attach, {.id = AutosaveLaunchMode::Ask}},
 	},
 	autosaveLaunch
 	{
