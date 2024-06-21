@@ -48,7 +48,7 @@ namespace EmuEx
 {
 
 constexpr SystemLogger log{"NES.emu"};
-const char *EmuSystem::creditsViewStr = CREDITS_INFO_STRING "(c) 2011-2024\n原作者：Robert Broglia\n汉化作者：安谧子\nwww.explusalpha.com\n\nPortions (c) the\nFCEUX Team\nfceux.com";
+const char *EmuSystem::creditsViewStr = CREDITS_INFO_STRING "(c) 2011-2024\n原作者：Robert Broglia\nwww.explusalpha.com\n汉化作者：安谧子\nGithub主页：https://github.com/anmizi\n\nPortions (c) the\nFCEUX Team\nfceux.com";
 bool EmuSystem::hasCheats = true;
 bool EmuSystem::hasPALVideoSystem = true;
 bool EmuSystem::hasResetModes = true;

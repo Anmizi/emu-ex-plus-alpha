@@ -25,7 +25,7 @@ namespace EmuEx
 RecentContentView::RecentContentView(ViewAttachParams attach, RecentContent &recentContent_):
 	TableView
 	{
-		"最近内容", attach,
+		"最近游戏", attach,
 		[this](TableView::ItemMessage msg)
 		{
 			return msg.visit(overloaded

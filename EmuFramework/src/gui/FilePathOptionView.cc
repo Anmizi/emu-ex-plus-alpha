@@ -48,7 +48,7 @@ static FS::FileString savePathStrToDisplayName(IG::ApplicationContext ctx, std::
 
 static auto savesMenuName(IG::ApplicationContext ctx, std::string_view savePath)
 {
-	return std::format("保存: {}", savePathStrToDisplayName(ctx, savePath));
+	return std::format("存档: {}", savePathStrToDisplayName(ctx, savePath));
 }
 
 static auto screenshotsMenuName(IG::ApplicationContext ctx, std::string_view userPath)
@@ -87,7 +87,7 @@ FilePathOptionView::FilePathOptionView(ViewAttachParams attach, bool customMenu)
 						});
 					pushAndShowModal(std::move(fPicker), e);
 				});
-			multiChoiceView->appendItem("与内容相同",
+			multiChoiceView->appendItem("与游戏一致",
 				[this](View &view)
 				{
 					system().setUserSaveDirectory("");

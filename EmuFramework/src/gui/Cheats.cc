@@ -23,7 +23,7 @@ namespace EmuEx
 BaseCheatsView::BaseCheatsView(ViewAttachParams attach):
 	TableView
 	{
-		"作弊器",
+		"秘籍",
 		attach,
 		[this](ItemMessage msg) -> ItemReply
 		{
@@ -61,7 +61,7 @@ BaseCheatsView::BaseCheatsView(ViewAttachParams attach):
 BaseEditCheatListView::BaseEditCheatListView(ViewAttachParams attach, TableView::ItemSourceDelegate itemSrc):
 	TableView
 	{
-		"编辑作弊器",
+		"编辑秘籍",
 		attach,
 		itemSrc
 	} {}

@@ -307,7 +307,7 @@ public:
 		},
 		turbo
 		{
-			"加速", attach,
+			"连发", attach,
 			bool(btn_.key.flags.turbo),
 			[this](BoolMenuItem &item)
 			{

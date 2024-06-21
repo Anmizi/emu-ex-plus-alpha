@@ -414,7 +414,7 @@ class CustomVideoOptionView : public VideoOptionView, public MainAppHelper
 
 	MultiChoiceMenuItem visibleVideoLines
 	{
-		"默认可见线", attachParams(),
+		"默认可视行", attachParams(),
 		[this]()
 		{
 			switch(system().optionDefaultVisibleVideoLines)
@@ -438,7 +438,7 @@ class CustomVideoOptionView : public VideoOptionView, public MainAppHelper
 
 	BoolMenuItem correctLineAspect
 	{
-		"正确的线条宽高比", attachParams(),
+		"正确的行长宽比", attachParams(),
 		(bool)system().optionCorrectLineAspect,
 		[this](BoolMenuItem &item)
 		{
@@ -496,7 +496,7 @@ class CustomAudioOptionView : public AudioOptionView, public MainAppHelper
 
 	BoolMenuItem swapDutyCycles
 	{
-		"交换工作周期", attachParams(),
+		"交换占空比", attachParams(),
 		swapDuty,
 		[this](BoolMenuItem &item)
 		{
@@ -504,7 +504,7 @@ class CustomAudioOptionView : public AudioOptionView, public MainAppHelper
 		}
 	};
 
-	TextHeadingMenuItem mixer{"混合器", attachParams()};
+	TextHeadingMenuItem mixer{"混频器", attachParams()};
 
 	BoolMenuItem squareWave1
 	{
@@ -582,10 +582,10 @@ class CustomFilePathOptionView : public FilePathOptionView, public MainAppHelper
 		cheatsMenuName(appContext(), system().cheatsDir), attachParams(),
 		[this](const Input::Event &e)
 		{
-			pushAndShow(makeViewWithName<UserPathSelectView>("作弊器", system().userPath(system().cheatsDir),
+			pushAndShow(makeViewWithName<UserPathSelectView>("秘籍", system().userPath(system().cheatsDir),
 				[this](CStringView path)
 				{
-					log.info("设置作弊器路径:{}", path);
+					log.info("设置秘籍路径:{}", path);
 					system().cheatsDir = path;
 					cheatsPath.compile(cheatsMenuName(appContext(), path));
 				}), e);
@@ -641,7 +641,7 @@ class CustomFilePathOptionView : public FilePathOptionView, public MainAppHelper
 
 	std::string biosMenuEntryStr(CStringView path) const
 	{
-		return std::format("磁盘系统BIOS: {}", appContext().fileUriDisplayName(path));
+		return std::format("磁碟机BIOS: {}", appContext().fileUriDisplayName(path));
 	}
 
 public:

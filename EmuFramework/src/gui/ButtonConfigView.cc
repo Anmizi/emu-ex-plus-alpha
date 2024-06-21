@@ -196,8 +196,8 @@ void ButtonConfigSetView::initPointerUI()
 	if(pointerUIIsInit())
 		return;
 	log.info("init pointer UI elements");
-	unbind = {renderer().mainTask, "Unbind", &defaultFace()};
-	cancel = {renderer().mainTask, "Cancel", &defaultFace()};
+	unbind = {renderer().mainTask, "解绑", &defaultFace()};
+	cancel = {renderer().mainTask, "取消", &defaultFace()};
 	unbindB.x2 = 1;
 }
 

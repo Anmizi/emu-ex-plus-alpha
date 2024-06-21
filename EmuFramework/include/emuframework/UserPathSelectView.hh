@@ -97,13 +97,13 @@ inline FS::FileString userPathToDisplayName(IG::ApplicationContext ctx, std::str
 	}
 	else
 	{
-		return "保存文件夹";
+		return "存档文件夹";
 	}
 }
 
 inline auto cheatsMenuName(IG::ApplicationContext ctx, std::string_view userPath)
 {
-	return std::format("作弊器: {}", std::string_view{userPathToDisplayName(ctx, userPath)});
+	return std::format("秘籍: {}", std::string_view{userPathToDisplayName(ctx, userPath)});
 }
 
 inline auto patchesMenuName(IG::ApplicationContext ctx, std::string_view userPath)

@@ -50,10 +50,10 @@ static std::string saveAutosaveName(EmuApp &app)
 }
 
 SystemActionsView::SystemActionsView(ViewAttachParams attach, bool customMenu):
-	TableView{"系统动作", attach, item},
+	TableView{"游戏菜单", attach, item},
 	cheats
 	{
-		"作弊器", attach,
+		"秘籍", attach,
 		[this](const Input::Event &e)
 		{
 			if(system().hasContent())

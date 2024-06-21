@@ -128,7 +128,7 @@ VideoOptionView::VideoOptionView(ViewAttachParams attach, EmuVideoLayer &videoLa
 	},
 	aspectRatio
 	{
-		"纵横比", attach,
+		"显示比例", attach,
 		std::bit_cast<MenuId>(app().videoAspectRatio()),
 		aspectRatioItem,
 		{
@@ -167,7 +167,7 @@ VideoOptionView::VideoOptionView(ViewAttachParams attach, EmuVideoLayer &videoLa
 	},
 	contentScale
 	{
-		"内容比例", attach,
+		"画面缩放", attach,
 		MenuId{videoLayer_.scale},
 		contentScaleItems,
 		{
@@ -205,7 +205,7 @@ VideoOptionView::VideoOptionView(ViewAttachParams attach, EmuVideoLayer &videoLa
 	},
 	menuScale
 	{
-		"菜单比例", attach,
+		"应用缩放", attach,
 		MenuId{app().menuScale},
 		menuScaleItems,
 		{
@@ -222,7 +222,7 @@ VideoOptionView::VideoOptionView(ViewAttachParams attach, EmuVideoLayer &videoLa
 		{"自动",        attach, {.id = Rotation::ANY}},
 		{"标准",    attach, {.id = Rotation::UP}},
 		{"右转90°",   attach, {.id = Rotation::RIGHT}},
-		{"颠倒", attach, {.id = Rotation::DOWN}},
+		{"上下翻转", attach, {.id = Rotation::DOWN}},
 		{"左转90°",    attach, {.id = Rotation::LEFT}},
 	},
 	contentRotation
@@ -424,9 +424,9 @@ VideoOptionView::VideoOptionView(ViewAttachParams attach, EmuVideoLayer &videoLa
 	},
 	showOnSecondScreen
 	{
-		"外部屏幕", attach,
+		"外接屏幕", attach,
 		app().showOnSecondScreen,
-		"操作系统管理", "模拟内容",
+		"系统管理", "游戏内容",
 		[this](BoolMenuItem &item)
 		{
 			app().showOnSecondScreen = item.flipBoolValue(*this);

@@ -175,7 +175,7 @@ static std::string makeFrameRateStr(VideoSystem vidSys, const OutputTimingManage
 	if(frameTimeOpt == OutputTimingManager::autoOption)
 		return "自动";
 	else if(frameTimeOpt == OutputTimingManager::originalOption)
-		return "最初的";
+		return "原始";
 	else
 		return std::format("{:g}Hz", toHz(frameTimeOpt));
 }
@@ -184,8 +184,8 @@ FrameTimingView::FrameTimingView(ViewAttachParams attach):
 	TableView{"帧定时选项", attach, item},
 	frameIntervalItem
 	{
-		{"Full (No Skip)", attach, {.id = 0}},
-		{"Full",           attach, {.id = 1}},
+		{"满帧(无跳过)", attach, {.id = 0}},
+		{"满帧",           attach, {.id = 1}},
 		{"1/2",            attach, {.id = 2}},
 		{"1/3",            attach, {.id = 3}},
 		{"1/4",            attach, {.id = 4}},
@@ -284,7 +284,7 @@ FrameTimingView::FrameTimingView(ViewAttachParams attach):
 	},
 	frameRatePAL
 	{
-		"帧率 (PAL)", attach,
+		"帧率(PAL)", attach,
 		app().outputTimingManager.frameTimeOptionAsMenuId(VideoSystem::PAL),
 		frameRateItems,
 		{

@@ -343,11 +343,11 @@ SystemInputDeviceDesc NesSystem::inputDeviceDesc(int idx) const
 	static constexpr std::array gamepadComponents
 	{
 		InputComponentDesc{"十字键", dpadKeyInfo, InputComponent::dPad, LB2DO},
-		InputComponentDesc{"面部按钮", faceKeyInfo, InputComponent::button, RB2DO},
+		InputComponentDesc{"正面按钮", faceKeyInfo, InputComponent::button, RB2DO},
 		InputComponentDesc{"选择", {&centerKeyInfo[0], 1}, InputComponent::button, LB2DO},
 		InputComponentDesc{"开始", {&centerKeyInfo[1], 1}, InputComponent::button, RB2DO},
 		InputComponentDesc{"选择/开始", centerKeyInfo, InputComponent::button, CB2DO, {.altConfig = true}},
-		InputComponentDesc{"P2 开始 (Famicom 麦克风)", p2StartKeyInfo, InputComponent::button, RB2DO, {.altConfig = true}},
+		InputComponentDesc{"P2开始(家电麦克风)", p2StartKeyInfo, InputComponent::button, RB2DO, {.altConfig = true}},
 	};
 
 	static constexpr SystemInputDeviceDesc gamepadDesc{"虚拟键盘", gamepadComponents};

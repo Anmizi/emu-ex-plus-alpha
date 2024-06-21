@@ -86,7 +86,7 @@ MainMenuView::MainMenuView(ViewAttachParams attach, bool customMenu):
 	},
 	recentGames
 	{
-		"最近内容", attach,
+		"最近游戏", attach,
 		[this](const Input::Event &e)
 		{
 			if(app().recentContent.size())

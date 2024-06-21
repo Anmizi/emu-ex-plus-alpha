@@ -50,7 +50,7 @@ SystemOptionView::SystemOptionView(ViewAttachParams attach, bool customMenu):
 	},
 	autosaveTimer
 	{
-		"自动保存计时器", attach,
+		"自动保存存档", attach,
 		MenuId{app().autosaveManager.saveTimer.frequency.count()},
 		autosaveTimerItem,
 		{
@@ -73,7 +73,7 @@ SystemOptionView::SystemOptionView(ViewAttachParams attach, bool customMenu):
 	},
 	autosaveLaunch
 	{
-		"自动保存启动模式", attach,
+		"自动存档启动模式", attach,
 		MenuId{app().autosaveManager.autosaveLaunchMode},
 		autosaveLaunchItem,
 		{
@@ -82,9 +82,9 @@ SystemOptionView::SystemOptionView(ViewAttachParams attach, bool customMenu):
 	},
 	autosaveContent
 	{
-		"自动保存内容", attach,
+		"自动存档内容", attach,
 		app().autosaveManager.saveOnlyBackupMemory,
-		"状态和备份 RAM", "仅备份 RAM",
+		"即时和备份 RAM", "仅备份 RAM",
 		[this](BoolMenuItem &item)
 		{
 			app().autosaveManager.saveOnlyBackupMemory = item.flipBoolValue(*this);
@@ -92,7 +92,7 @@ SystemOptionView::SystemOptionView(ViewAttachParams attach, bool customMenu):
 	},
 	confirmOverwriteState
 	{
-		"确认重写状态", attach,
+		"覆盖存档时提示", attach,
 		app().confirmOverwriteState,
 		[this](BoolMenuItem &item)
 		{
@@ -124,7 +124,7 @@ SystemOptionView::SystemOptionView(ViewAttachParams attach, bool customMenu):
 	},
 	fastModeSpeed
 	{
-		"快进速度", attach,
+		"快动作速度", attach,
 		MenuId{app().altSpeed(AltSpeedMode::fast)},
 		fastModeSpeedItem,
 		{
@@ -199,7 +199,7 @@ SystemOptionView::SystemOptionView(ViewAttachParams attach, bool customMenu):
 	},
 	rewindStates
 	{
-		"倒带状态", attach,
+		"回放存档", attach,
 		MenuId{app().rewindManager.maxStates},
 		rewindStatesItem,
 		{
@@ -213,7 +213,7 @@ SystemOptionView::SystemOptionView(ViewAttachParams attach, bool customMenu):
 	},
 	rewindTimeInterval
 	{
-		"倒带状态间隔（秒）", std::to_string(app().rewindManager.saveTimer.frequency.count()), attach,
+		"回放存档间隔（秒）", std::to_string(app().rewindManager.saveTimer.frequency.count()), attach,
 		[this](const Input::Event &e)
 		{
 			pushAndShowNewCollectValueRangeInputView<int, 1, 60>(attachParams(), e,

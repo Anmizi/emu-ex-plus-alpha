@@ -75,7 +75,7 @@ constexpr struct AppKeys
 	static constexpr size_t size() { return sizeof(AppKeys) / sizeof(KeyInfo); }
 } appKeys;
 
-constexpr KeyCategory appKeyCategory{"In-Emulation Actions", appKeys};
+constexpr KeyCategory appKeyCategory{"在游戏时动作", appKeys};
 
 constexpr std::array genericGamepadAppKeyCodeMap
 {
@@ -115,7 +115,7 @@ constexpr std::array rewindUIKeys{appKeys.rewind};
 
 constexpr InputComponentDesc rightUIComponents{"打开菜单", rightUIKeys, InputComponent::ui, RT2DO};
 constexpr InputComponentDesc leftUIComponents{"快慢动作切换", leftUIKeys, InputComponent::ui, LT2DO};
-constexpr InputComponentDesc rewindUIComponents{"倒带一个状态", rewindUIKeys, InputComponent::ui, LT2DO};
+constexpr InputComponentDesc rewindUIComponents{"回放一个存档", rewindUIKeys, InputComponent::ui, LT2DO};
 
 std::string_view toString(AppKeyCode);
 

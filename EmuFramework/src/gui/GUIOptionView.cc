@@ -142,7 +142,7 @@ GUIOptionView::GUIOptionView(ViewAttachParams attach, bool customMenu):
 	},
 	idleDisplayPowerSave
 	{
-		"在模拟中允许屏幕超时", attach,
+		"在游戏时允许屏幕超时", attach,
 		app().idleDisplayPowerSave,
 		[this](BoolMenuItem &item)
 		{
@@ -160,7 +160,7 @@ GUIOptionView::GUIOptionView(ViewAttachParams attach, bool customMenu):
 	},
 	backNav
 	{
-		"标题返回导航", attach,
+		"标题栏导航", attach,
 		attach.viewManager.needsBackControl,
 		[this](BoolMenuItem &item)
 		{
@@ -173,7 +173,7 @@ GUIOptionView::GUIOptionView(ViewAttachParams attach, bool customMenu):
 	{
 		"默认菜单", attach,
 		app().systemActionsIsDefaultMenu,
-		"最后使用", "系统动作",
+		"最后使用", "游戏菜单",
 		[this](BoolMenuItem &item)
 		{
 			app().systemActionsIsDefaultMenu = item.flipBoolValue(*this);
@@ -208,7 +208,7 @@ GUIOptionView::GUIOptionView(ViewAttachParams attach, bool customMenu):
 	},
 	maxRecentContent
 	{
-		"最大最近内容项目", std::to_string(app().recentContent.maxRecentContent), attach,
+		"最大最近游戏项目", std::to_string(app().recentContent.maxRecentContent), attach,
 		[this](const Input::Event &e)
 		{
 			pushAndShowNewCollectValueRangeInputView<int, 1, 100>(attachParams(), e,
@@ -252,7 +252,7 @@ GUIOptionView::GUIOptionView(ViewAttachParams attach, bool customMenu):
 	},
 	emuOrientation
 	{
-		"在模拟中", attach,
+		"游戏时", attach,
 		MenuId{uint8_t(app().emuOrientation.value())},
 		emuOrientationItem,
 		{
@@ -261,7 +261,7 @@ GUIOptionView::GUIOptionView(ViewAttachParams attach, bool customMenu):
 	},
 	layoutBehindSystemUI
 	{
-		"操作系统用户界面背后的显示屏", attach,
+		"应用界面全屏显示", attach,
 		app().doesLayoutBehindSystemUI(),
 		[this](BoolMenuItem &item)
 		{

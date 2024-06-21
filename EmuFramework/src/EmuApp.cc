@@ -923,7 +923,7 @@ void EmuApp::onSystemCreated()
 	updateVideoContentRotation();
 	if(!rewindManager.reset(system().stateSize()))
 	{
-		postErrorMessage(4, "没有足够的内存用于倒带状态");
+		postErrorMessage(4, "没有足够的内存用于回放存档");
 	}
 	viewController().onSystemCreated();
 }

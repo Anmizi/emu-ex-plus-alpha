@@ -468,7 +468,7 @@ InputManagerDeviceView::InputManagerDeviceView(UTF16String name, ViewAttachParam
 	},
 	player
 	{
-		"Player", attach,
+		"玩家", attach,
 		MenuId{inputDevData(dev).devConf.player()},
 		playerItems,
 		{
@@ -603,7 +603,7 @@ InputManagerDeviceView::InputManagerDeviceView(UTF16String name, ViewAttachParam
 				if(!item.boolValue())
 				{
 					pushAndShowModal(makeView<YesNoAlertView>(
-						"该模式允许从兼容 iCade 的蓝牙设备输入信息, 如果这不是 iCade，就不要启用", "开启", "取消",
+						"该模式允许从兼容iCade的蓝牙设备输入信息,如果这不是 iCade,就不要启用", "开启", "取消",
 						YesNoAlertView::Delegates{.onYes = [this]{ confirmICadeMode(); }}), e);
 				}
 				else
