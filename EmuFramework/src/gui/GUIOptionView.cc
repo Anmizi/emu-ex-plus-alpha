@@ -181,7 +181,7 @@ GUIOptionView::GUIOptionView(ViewAttachParams attach, bool customMenu):
 	},
 	showBundledGames
 	{
-		"显示压缩内容", attach,
+		"显示附加游戏", attach,
 		app().showsBundledGames,
 		[this](BoolMenuItem &item)
 		{

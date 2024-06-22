@@ -70,7 +70,7 @@ LoadProgressView::LoadProgressView(ViewAttachParams attach, const Input::Event &
 							case -1: // no string
 								break;
 							case 0: // default string
-								setLabel("Loading...");
+								setLabel("加载中...");
 								break;
 							default: // custom string
 							{

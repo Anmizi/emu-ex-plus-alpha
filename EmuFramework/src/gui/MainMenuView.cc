@@ -97,7 +97,7 @@ MainMenuView::MainMenuView(ViewAttachParams attach, bool customMenu):
 	},
 	bundledGames
 	{
-		"压缩游戏", attach,
+		"附加游戏", attach,
 		[this](const Input::Event &e)
 		{
 			pushAndShow(makeView<BundledGamesView>(), e);

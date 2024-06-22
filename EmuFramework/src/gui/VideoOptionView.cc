@@ -153,7 +153,7 @@ VideoOptionView::VideoOptionView(ViewAttachParams attach, EmuVideoLayer &videoLa
 		{"自定义值", attach,
 			[this](const Input::Event &e)
 			{
-				pushAndShowNewCollectValueRangeInputView<int, 10, 200>(attachParams(), e, "Input 10 to 200", "",
+				pushAndShowNewCollectValueRangeInputView<int, 10, 200>(attachParams(), e, "输入10到200", "",
 					[this](CollectTextInputView &, auto val)
 					{
 						app().setContentScale(val);
@@ -191,7 +191,7 @@ VideoOptionView::VideoOptionView(ViewAttachParams attach, EmuVideoLayer &videoLa
 		{"自定义值", attach,
 			[this](const Input::Event &e)
 			{
-				pushAndShowNewCollectValueRangeInputView<int, 50, 100>(attachParams(), e, "Input 50 to 100", "",
+				pushAndShowNewCollectValueRangeInputView<int, 50, 100>(attachParams(), e, "输入50到100", "",
 					[this](CollectTextInputView &, auto val)
 					{
 						app().setMenuScale(val);
@@ -310,7 +310,7 @@ VideoOptionView::VideoOptionView(ViewAttachParams attach, EmuVideoLayer &videoLa
 		{"自定义值", attach,
 			[this](const Input::Event &e)
 			{
-				pushAndShowNewCollectValueRangeInputView<int, 0, 100>(attachParams(), e, "Input 0 to 100", "",
+				pushAndShowNewCollectValueRangeInputView<int, 0, 100>(attachParams(), e, "输入0到100", "",
 					[this](CollectTextInputView &, auto val)
 					{
 						videoLayer.setOverlayIntensity(val / 100.f);
@@ -415,7 +415,7 @@ VideoOptionView::VideoOptionView(ViewAttachParams attach, EmuVideoLayer &videoLa
 	},
 	secondDisplay
 	{
-		"2nd Window (for testing only)", attach,
+		"2nd Window(仅用于测试)", attach,
 		false,
 		[this](BoolMenuItem &item)
 		{

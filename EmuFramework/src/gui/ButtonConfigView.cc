@@ -337,9 +337,9 @@ void ButtonConfigSetView::draw(Gfx::RendererCommands&__restrict__ cmds, ViewDraw
 void ButtonConfigSetView::onAddedToController(ViewController *, const Input::Event &e)
 {
 	if(e.motionEvent())
-		text.resetString(std::format("最多可按 3 个键, 释放以配置:\n{}", actionStr));
+		text.resetString(std::format("最多可按3个键,释放以配置:\n{}", actionStr));
 	else
-		text.resetString(std::format("最多可按 3 个键, 释放以配置:\n{}\n\n解除绑定:\n在上一级菜单中快速按两次 [Left] 键", actionStr));
+		text.resetString(std::format("最多可按3个键,释放以配置:\n{}\n\n解除绑定:\n在上一级菜单中快速按两次[Left]键", actionStr));
 	if(e.motionEvent())
 	{
 		initPointerUI();

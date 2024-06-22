@@ -104,7 +104,7 @@ void StateSlotView::refreshSlot(int slot)
 		stateSlot[sys.stateSlot()].setHighlighted(false);
 		stateSlot[slot].setHighlighted(true);
 		sys.setStateSlot(slot);
-		log.info("设置状态插槽:{}", sys.stateSlot());
+		log.info("设置存档插槽:{}", sys.stateSlot());
 		slotHeading.compile(slotHeadingName(sys));
 		load.setActive(sys.stateExists(sys.stateSlot()));
 		postDraw();

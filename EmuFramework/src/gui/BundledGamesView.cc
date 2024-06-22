@@ -28,7 +28,7 @@ constexpr SystemLogger log{"BundledGamesView"};
 BundledGamesView::BundledGamesView(ViewAttachParams attach):
 	TableView
 	{
-		"压缩内容",
+		"附加游戏",
 		attach,
 		game
 	},
