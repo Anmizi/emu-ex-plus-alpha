@@ -132,7 +132,7 @@ public:
 		AlertView
 		{
 			attach,
-			"真的要退出吗？（再次按下/退出确认）",
+			"真的要退出吗?(再次按下/退出确认)",
 			hasEmuContent ? 3u : 2u
 		}
 	{

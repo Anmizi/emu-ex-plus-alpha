@@ -163,7 +163,7 @@ bool PlaceVControlsView::inputEvent(const Input::Event& e, ViewInputEventParams)
 					else if(snapBtnRect.overlaps(state.pos()) && snapBtnRect.overlaps(state.downPos()))
 					{
 						snapPxIdx = (snapPxIdx + 1) % snapPxSizes.size();
-						snapText.resetString(std::format("Snap: {}px", snapPxSizes[snapPxIdx]));
+						snapText.resetString(std::format("网格: {}px", snapPxSizes[snapPxIdx]));
 						place();
 						postDraw();
 					}

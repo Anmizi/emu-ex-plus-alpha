@@ -92,12 +92,12 @@ std::string_view Snes9xApp::systemKeyCodeToString(KeyCode c)
 {
 	switch(SnesKey(c))
 	{
-		case SnesKey::Up: return "Up";
-		case SnesKey::Right: return "Right";
-		case SnesKey::Down: return "Down";
-		case SnesKey::Left: return "Left";
-		case SnesKey::Select: return "Select";
-		case SnesKey::Start: return "Start";
+		case SnesKey::Up: return "上";
+		case SnesKey::Right: return "右";
+		case SnesKey::Down: return "下";
+		case SnesKey::Left: return "左";
+		case SnesKey::Select: return "选择";
+		case SnesKey::Start: return "开始";
 		case SnesKey::A: return "A";
 		case SnesKey::B: return "B";
 		case SnesKey::X: return "X";
@@ -591,17 +591,17 @@ SystemInputDeviceDesc Snes9xSystem::inputDeviceDesc(int idx) const
 {
 	static constexpr std::array gamepadComponents
 	{
-		InputComponentDesc{"D-Pad", dpadKeyInfo, InputComponent::dPad, LB2DO},
-		InputComponentDesc{"Face Buttons", faceKeyInfo, InputComponent::button, RB2DO, {.staggeredLayout = true}},
-		InputComponentDesc{"Face Buttons + Inline L/R", faceLRKeyInfo, InputComponent::button, RB2DO, {.altConfig = true, .staggeredLayout = true}},
+		InputComponentDesc{"十字键", dpadKeyInfo, InputComponent::dPad, LB2DO},
+		InputComponentDesc{"正面按钮", faceKeyInfo, InputComponent::button, RB2DO, {.staggeredLayout = true}},
+		InputComponentDesc{"正面按钮+内嵌L/R", faceLRKeyInfo, InputComponent::button, RB2DO, {.altConfig = true, .staggeredLayout = true}},
 		InputComponentDesc{"L", lKeyInfo, InputComponent::trigger, LB2DO},
 		InputComponentDesc{"R", rKeyInfo, InputComponent::trigger, RB2DO},
-		InputComponentDesc{"Select", {&centerKeyInfo[0], 1}, InputComponent::button, LB2DO},
-		InputComponentDesc{"Start", {&centerKeyInfo[1], 1}, InputComponent::button, RB2DO},
-		InputComponentDesc{"Select/Start", centerKeyInfo, InputComponent::button, CB2DO, {.altConfig = true}},
+		InputComponentDesc{"选择", {&centerKeyInfo[0], 1}, InputComponent::button, LB2DO},
+		InputComponentDesc{"开始", {&centerKeyInfo[1], 1}, InputComponent::button, RB2DO},
+		InputComponentDesc{"选择/开始", centerKeyInfo, InputComponent::button, CB2DO, {.altConfig = true}},
 	};
 
-	static constexpr SystemInputDeviceDesc gamepadDesc{"Gamepad", gamepadComponents};
+	static constexpr SystemInputDeviceDesc gamepadDesc{"手柄", gamepadComponents};
 
 	return gamepadDesc;
 }

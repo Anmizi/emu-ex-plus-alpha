@@ -30,7 +30,7 @@ static bool S9xInterlaceField()
 namespace EmuEx
 {
 
-const char *EmuSystem::creditsViewStr = CREDITS_INFO_STRING "(c) 2011-2024\nRobert Broglia\nwww.explusalpha.com\n\nPortions (c) the\nSnes9x Team\nwww.snes9x.com";
+const char *EmuSystem::creditsViewStr = CREDITS_INFO_STRING "(c) 2011-2024\nRobert Broglia\nwww.explusalpha.com\n\n汉化作者: 安谧子\nGITHUB: https://github.com/anmizi\n\nPortions (c) the\nSnes9x Team\nwww.snes9x.com";
 #if PIXEL_FORMAT == RGB565
 constexpr auto srcPixFmt = IG::PixelFmtRGB565;
 #else
@@ -158,7 +158,7 @@ void Snes9xSystem::readState(EmuApp &, std::span<uint8_t> buff)
 		buff = uncompArr;
 	}
 	if(!unfreezeStateFrom(buff))
-		throw std::runtime_error("Invalid state data");
+		throw std::runtime_error("无效存档数据");
 	IPPU.RenderThisFrame = TRUE;
 }
 
@@ -259,7 +259,7 @@ void Snes9xSystem::loadContent(IO &io, EmuSystemCreateParams, OnLoadProgressDele
 	auto size = io.size();
 	if(size > CMemory::MAX_ROM_SIZE + 512)
 	{
-		throw std::runtime_error("ROM is too large");
+		throw std::runtime_error("ROM文件太大了");
 	}
 	#ifndef SNES9X_VERSION_1_4
 	IG::fill(Memory.NSRTHeader);
