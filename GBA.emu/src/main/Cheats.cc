@@ -93,8 +93,7 @@ void EmuEditCheatListView::addNewCheat(int isGSv3)
 {
 	if(cheatsList.size() == cheatsList.capacity())
 	{
-		app().postMessage(true, "秘籍太多，先删除一些
-");
+		app().postMessage(true, "秘籍太多，先删除一些");
 		return;
 	}
 	pushAndShowNewCollectTextInputView(attachParams(), {},
