@@ -92,7 +92,7 @@ std::span<const KeyCategory> GbaApp::keyCategories()
 {
 	static constexpr std::array categories
 	{
-		KeyCategory{"Gamepad", gpKeyInfo},
+		KeyCategory{"手柄", gpKeyInfo},
 	};
 	return categories;
 }
@@ -101,18 +101,18 @@ std::string_view GbaApp::systemKeyCodeToString(KeyCode c)
 {
 	switch(GbaKey(c))
 	{
-		case GbaKey::Up: return "Up";
-		case GbaKey::Right: return "Right";
-		case GbaKey::Down: return "Down";
-		case GbaKey::Left: return "Left";
-		case GbaKey::Select: return "Select";
-		case GbaKey::Start: return "Start";
+		case GbaKey::Up: return "上";
+		case GbaKey::Right: return "右";
+		case GbaKey::Down: return "下";
+		case GbaKey::Left: return "左";
+		case GbaKey::Select: return "选择";
+		case GbaKey::Start: return "开始";
 		case GbaKey::A: return "A";
 		case GbaKey::B: return "B";
 		case GbaKey::L: return "L";
 		case GbaKey::R: return "R";
-		case GbaKey::LightInc: return "Light Sensor Level +";
-		case GbaKey::LightDec: return "Light Sensor Level -";
+		case GbaKey::LightInc: return "光传感器级别 +";
+		case GbaKey::LightDec: return "光传感器级别 -";
 		default: return "";
 	}
 }
@@ -232,7 +232,7 @@ void GbaSystem::handleInputAction(EmuApp *app, InputAction a)
 			darknessLevel = std::clamp(darknessLevel + darknessChange, 0, 0xff);
 			if(app)
 			{
-				app->postMessage(1, false, std::format("Light sensor level: {}%", remap(darknessLevel, 0xff, 0, 0, 100)));
+				app->postMessage(1, false, std::format("光传感器级别: {}%", remap(darknessLevel, 0xff, 0, 0, 100)));
 			}
 			break;
 		}
@@ -252,17 +252,17 @@ SystemInputDeviceDesc GbaSystem::inputDeviceDesc(int idx) const
 {
 	static constexpr std::array gamepadComponents
 	{
-		InputComponentDesc{"D-Pad", dpadKeyInfo, InputComponent::dPad, LB2DO},
-		InputComponentDesc{"Face Buttons", faceKeyInfo, InputComponent::button, RB2DO},
-		InputComponentDesc{"Face Buttons + Inline L/R", faceLRKeyInfo, InputComponent::button, RB2DO, {.altConfig = true}},
+		InputComponentDesc{"十字键", dpadKeyInfo, InputComponent::dPad, LB2DO},
+		InputComponentDesc{"正面按钮", faceKeyInfo, InputComponent::button, RB2DO},
+		InputComponentDesc{"正面按钮 + 内嵌L/R", faceLRKeyInfo, InputComponent::button, RB2DO, {.altConfig = true}},
 		InputComponentDesc{"L", lKeyInfo, InputComponent::trigger, LB2DO},
 		InputComponentDesc{"R", rKeyInfo, InputComponent::trigger, RB2DO},
-		InputComponentDesc{"Select", {&centerKeyInfo[0], 1}, InputComponent::button, LB2DO},
-		InputComponentDesc{"Start", {&centerKeyInfo[1], 1}, InputComponent::button, RB2DO},
-		InputComponentDesc{"Select/Start", centerKeyInfo, InputComponent::button, CB2DO, {.altConfig = true}},
+		InputComponentDesc{"选择", {&centerKeyInfo[0], 1}, InputComponent::button, LB2DO},
+		InputComponentDesc{"开始", {&centerKeyInfo[1], 1}, InputComponent::button, RB2DO},
+		InputComponentDesc{"选择/开始", centerKeyInfo, InputComponent::button, CB2DO, {.altConfig = true}},
 	};
 
-	static constexpr SystemInputDeviceDesc gamepadDesc{"Gamepad", gamepadComponents};
+	static constexpr SystemInputDeviceDesc gamepadDesc{"手柄", gamepadComponents};
 
 	return gamepadDesc;
 }

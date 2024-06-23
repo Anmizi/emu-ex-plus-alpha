@@ -42,7 +42,7 @@ namespace EmuEx
 {
 
 constexpr SystemLogger log{"GBA.emu"};
-const char *EmuSystem::creditsViewStr = CREDITS_INFO_STRING "(c) 2012-2024\nRobert Broglia\nwww.explusalpha.com\n\nPortions (c) the\nVBA-m Team\nvba-m.com";
+const char *EmuSystem::creditsViewStr = CREDITS_INFO_STRING "(c) 2012-2024\nRobert Broglia\nwww.explusalpha.com\n\n汉化作者：安谧子\nGITHUB：https://github.com/anmizi\n\nPortions (c) the\nVBA-m Team\nvba-m.com";
 bool EmuSystem::hasBundledGames = true;
 bool EmuSystem::hasCheats = true;
 bool EmuApp::needsGlobalInstance = true;
@@ -97,7 +97,7 @@ void GbaSystem::readState(EmuApp &app, std::span<uint8_t> buff)
 		buff = uncompArr;
 	}
 	if(!CPUReadState(gGba, buff.data()))
-		throw std::runtime_error("Invalid state data");
+		throw std::runtime_error("无效存档数据");
 }
 
 size_t GbaSystem::writeState(std::span<uint8_t> buff, SaveStateFlags flags)
@@ -173,7 +173,7 @@ void GbaSystem::applyGamePatches(uint8_t *rom, int &romSize)
 		log.info("applying IPS patch:{}", userFilePath(patchesDir, ".ips"));
 		if(!patchApplyIPS(f, &rom, &romSize))
 		{
-			throw std::runtime_error(std::format("Error applying IPS patch in:\n{}", patchesDir));
+			throw std::runtime_error(std::format("应用IPS补丁时出错:\n{}", patchesDir));
 		}
 	}
 	else if(auto f = IG::FileUtils::fopenUri(ctx, userFilePath(patchesDir, ".ups"), "rb");
@@ -182,7 +182,7 @@ void GbaSystem::applyGamePatches(uint8_t *rom, int &romSize)
 		log.info("applying UPS patch:{}", userFilePath(patchesDir, ".ups"));
 		if(!patchApplyUPS(f, &rom, &romSize))
 		{
-			throw std::runtime_error(std::format("Error applying UPS patch in:\n{}", patchesDir));
+			throw std::runtime_error(std::format("应用IPS补丁时出错:\n{}", patchesDir));
 		}
 	}
 	else if(auto f = IG::FileUtils::fopenUri(ctx, userFilePath(patchesDir, ".ppf"), "rb");
@@ -191,7 +191,7 @@ void GbaSystem::applyGamePatches(uint8_t *rom, int &romSize)
 		log.info("applying UPS patch:{}", userFilePath(patchesDir, ".ppf"));
 		if(!patchApplyPPF(f, &rom, &romSize))
 		{
-			throw std::runtime_error(std::format("Error applying PPF patch in:\n{}", patchesDir));
+			throw std::runtime_error(std::format("应用PPF补丁时出错:\n{}", patchesDir));
 		}
 	}
 }
@@ -210,7 +210,7 @@ void GbaSystem::loadContent(IO &io, EmuSystemCreateParams, OnLoadProgressDelegat
 	{
 		biosRom = appContext().openFileUri(biosPath, {.accessHint = IOAccessHint::All}).buffer(IOBufferMode::Release);
 		if(biosRom.size() != 0x4000)
-			throw std::runtime_error("BIOS size should be 16KB");
+			throw std::runtime_error("BIOS大小应为16KB");
 	}
 	CPUInit(gGba, biosRom);
 	CPUReset(gGba);

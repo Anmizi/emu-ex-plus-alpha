@@ -35,7 +35,7 @@ static void writeCheatFile(EmuSystem &);
 EmuEditCheatView::EmuEditCheatView(ViewAttachParams attach, int cheatIdx, RefreshCheatsDelegate onCheatListChanged_):
 	BaseEditCheatView
 	{
-		"Edit Code",
+		"编辑代码",
 		attach,
 		cheatsList[cheatIdx].desc,
 		items,
@@ -52,12 +52,12 @@ EmuEditCheatView::EmuEditCheatView(ViewAttachParams attach, int cheatIdx, Refres
 	items{&name, &code, &remove},
 	code
 	{
-		"Code",
+		"代码",
 		cheatsList[cheatIdx].codestring,
 		attach,
 		[this](DualTextMenuItem &, View &, Input::Event)
 		{
-			app().postMessage("To change this cheat, please delete and re-add it");
+			app().postMessage("要更改此秘籍，请删除并重新添加");
 		}
 	},
 	idx{cheatIdx}
@@ -93,11 +93,12 @@ void EmuEditCheatListView::addNewCheat(int isGSv3)
 {
 	if(cheatsList.size() == cheatsList.capacity())
 	{
-		app().postMessage(true, "Too many cheats, delete some first");
+		app().postMessage(true, "秘籍太多，先删除一些
+");
 		return;
 	}
 	pushAndShowNewCollectTextInputView(attachParams(), {},
-		isGSv3 ? "Input xxxxxxxx yyyyyyyy" : "Input xxxxxxxx yyyyyyyy (GS) or xxxxxxxx yyyy (AR)", "",
+		isGSv3 ? "输入 xxxxxxxx yyyyyyyy" : "输入 xxxxxxxx yyyyyyyy (GS) 或 xxxxxxxx yyyy (AR)", "",
 		[this, isGSv3](CollectTextInputView &view, const char *str)
 		{
 			if(str)
@@ -109,22 +110,22 @@ void EmuEditCheatListView::addNewCheat(int isGSv3)
 					tempStr.erase(tempStr.begin() + 8);
 				}
 				if(isGSv3 ?
-					cheatsAddGSACode(gGba.cpu, tempStr.data(), "Unnamed Cheat", true) :
-					((tempStr.size() == 16 && cheatsAddGSACode(gGba.cpu, tempStr.data(), "Unnamed Cheat", false))
-					|| cheatsAddCBACode(gGba.cpu, tempStr.data(), "Unnamed Cheat")))
+					cheatsAddGSACode(gGba.cpu, tempStr.data(), "未命名秘籍", true) :
+					((tempStr.size() == 16 && cheatsAddGSACode(gGba.cpu, tempStr.data(), "未命名秘籍", false))
+					|| cheatsAddCBACode(gGba.cpu, tempStr.data(), "未命名秘籍")))
 				{
 					logMsg("added new cheat, %d total", (int)cheatsList.size());
 				}
 				else
 				{
-					app().postMessage(true, "Invalid format");
+					app().postMessage(true, "无效格式");
 					return true;
 				}
 				cheatsDisable(gGba.cpu, cheatsList.size()-1);
 				onCheatListChanged();
 				writeCheatFile(system());
 				view.dismiss();
-				pushAndShowNewCollectTextInputView(attachParams(), {}, "Input description", "",
+				pushAndShowNewCollectTextInputView(attachParams(), {}, "输入描述", "",
 					[this](CollectTextInputView &view, const char *str)
 					{
 						if(str)
@@ -172,7 +173,7 @@ EmuEditCheatListView::EmuEditCheatListView(ViewAttachParams attach):
 	},
 	addGS12CBCode
 	{
-		"Add Game Shark v1-2/Code Breaker Code", attach,
+		"添加Game Shark v1-2/Code Breaker代码", attach,
 		[this](TextMenuItem &item, View &, Input::Event e)
 		{
 			addNewCheat(false);
@@ -180,7 +181,7 @@ EmuEditCheatListView::EmuEditCheatListView(ViewAttachParams attach):
 	},
 	addGS3Code
 	{
-		"Add Game Shark v3 Code", attach,
+		"添加Game Shark v3 代码", attach,
 		[this](TextMenuItem &item, View &, Input::Event e)
 		{
 			addNewCheat(true);

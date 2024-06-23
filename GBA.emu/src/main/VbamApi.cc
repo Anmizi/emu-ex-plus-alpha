@@ -144,14 +144,14 @@ const char *saveTypeStr(int type, int size)
 {
 	switch(type)
 	{
-		case GBA_SAVE_AUTO: return "Auto";
+		case GBA_SAVE_AUTO: return "自动";
 		case GBA_SAVE_EEPROM: return "EEPROM";
 		case GBA_SAVE_SRAM: return "SRAM";
 		case GBA_SAVE_FLASH: return size == SIZE_FLASH1M ? "Flash (128K)" : "Flash (64K)";
 		case GBA_SAVE_EEPROM_SENSOR: return "EEPROM + Sensor";
-		case GBA_SAVE_NONE: return "None";
+		case GBA_SAVE_NONE: return "无";
 	}
-	return "Unknown";
+	return "未知";
 }
 
 bool saveMemoryHasContent()

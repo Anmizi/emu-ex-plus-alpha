@@ -79,11 +79,11 @@ std::span<const KeyCategory> Snes9xApp::keyCategories()
 {
 	static constexpr std::array categories
 	{
-		KeyCategory{"Gamepad", gpKeyInfo},
-		KeyCategory{"Gamepad 2", gp2KeyInfo, 1},
-		KeyCategory{"Gamepad 3", gp3KeyInfo, 2},
-		KeyCategory{"Gamepad 4", gp4KeyInfo, 3},
-		KeyCategory{"Gamepad 5", gp4KeyInfo, 4},
+		KeyCategory{"手柄", gpKeyInfo},
+		KeyCategory{"手柄 2", gp2KeyInfo, 1},
+		KeyCategory{"手柄 3", gp3KeyInfo, 2},
+		KeyCategory{"手柄 4", gp4KeyInfo, 3},
+		KeyCategory{"手柄 5", gp4KeyInfo, 4},
 	};
 	return categories;
 }
